@@ -1,4 +1,4 @@
-# [5.0 Snapshot 6] - 9/4/26
+# [5.0 Snapshot 7] - UNRELEASED
 ## New Features
 ### Warm River
 - Added Warm River biome
