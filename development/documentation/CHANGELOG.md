@@ -82,6 +82,7 @@
 
 ### Biomes
 - Added Gravel Beach biome
+- Added Warm River biome
 
 ### Recipes
 - Adding Block of Raw Copper Blasting recipe
@@ -307,6 +308,7 @@
 - Changed ambient cold wind sounds to be less common
 - Changed Guardian Beam charge sounds
 - Changed Guardian Beam spike sounds
+- Changed Large Ferns to have ambient sounds
 
 ### Advancements
 - Changed "Traveler" advancement name to "Tentative Accommodations"
@@ -389,6 +391,7 @@
 - Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
 - Fixed bug preventing some settings from being saved
 - Fixed [MC-57057](https://bugs.mojang.com/browse/MC/issues/MC-57057) - Guardian laser attack sound ignores distance
+- Fixed a memory leak relating to the Select World screen
 
 # [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
