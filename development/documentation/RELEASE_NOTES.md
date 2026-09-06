@@ -1,4 +1,6 @@
-# [5.0 Snapshot 7] - UNRELEASED
+# [5.0 Snapshot 7] - 9/6/26
+The final snapshot for 5.0! Check out the warm rivers and listen to new sounds!
+
 ## New Features
 ### Warm River
 - Added Warm River biome
