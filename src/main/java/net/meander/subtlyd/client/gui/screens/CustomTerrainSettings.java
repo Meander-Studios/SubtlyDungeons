@@ -9,6 +9,7 @@ import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.util.Mth;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,11 +63,11 @@ public class CustomTerrainSettings {
 
     public static void applyMasterScale(double newMasterScale) {
         if (getSettingsScreen() != null) {
-            masterScale = newMasterScale;
-            continentScale = newMasterScale;
-            biomeScale = newMasterScale;
-            erosionScale = getSoftScale(CustomTerrainSettingsScreen.initialErosion, newMasterScale);
-            oceanDepthScale = getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale);
+            masterScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            continentScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            biomeScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            erosionScale = Mth.clamp(getSoftScale(CustomTerrainSettingsScreen.initialErosion, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            oceanDepthScale = Mth.clamp(getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE_OCEAN);
         }
     }
 

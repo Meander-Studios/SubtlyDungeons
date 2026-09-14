@@ -392,6 +392,7 @@
 - Fixed bug preventing some settings from being saved
 - Fixed [MC-57057](https://bugs.mojang.com/browse/MC/issues/MC-57057) - Guardian laser attack sound ignores distance
 - Fixed a memory leak relating to the Select World screen
+- Fixed a bug relating to Multiplayer Server icons
 
 # [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus

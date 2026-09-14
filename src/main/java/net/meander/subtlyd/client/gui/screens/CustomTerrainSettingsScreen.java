@@ -42,6 +42,7 @@ public class CustomTerrainSettingsScreen extends Screen {
     private AbstractSliderButton oceanSlider;
     public static final double MIN_VALUE = 0.1;
     public static final double MAX_VALUE = 10.0;
+    public static final double MAX_VALUE_OCEAN = 1.75;
     public static double initialMaster = 1.0;
     public static double initialContinent = 1.0;
     public static double initialBiome = 1.0;
@@ -65,7 +66,9 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         list = layout.addToContents(new SliderList());
 
-        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT, Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE, CustomTerrainSettings.masterScale,
+        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
+                Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.masterScale,
                 (newValue) -> {
                     CustomTerrainSettings.applyMasterScale(newValue);
                     updateSliders();
@@ -88,7 +91,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         );
 
         oceanSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, 1.75,
+                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, MAX_VALUE_OCEAN,
                 CustomTerrainSettings.oceanDepthScale, v -> CustomTerrainSettings.oceanDepthScale = v
         );
 
@@ -205,6 +208,11 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         public void addDouble(AbstractWidget leftWidget, AbstractWidget rightWidget) {
             addEntry(new Entry(leftWidget, rightWidget));
+        }
+
+        @Override
+        public int getRowWidth() {
+            return 310;
         }
 
         public class Entry extends ContainerObjectSelectionList.Entry<SliderList.Entry> {
