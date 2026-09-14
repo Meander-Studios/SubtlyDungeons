@@ -1,4 +1,4 @@
-# [5.0 Battles & Biomes] - UNRELEASED
+# [5.0 Battles & Biomes] - 9/15/26
 ## New Features
 ### Player-Tailored World Generation
 - Added the Tailored World Generation system
