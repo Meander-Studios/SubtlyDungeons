@@ -9,9 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
+/**
+ * @see net.minecraft.world.inventory.AnvilMenu
+ */
 public class AnvilMenuSD {
     public static int getCostByEnchantability(int input, int addition) {
-        int difference = (Mth.abs(input - addition));
+        int difference = Mth.abs(input - addition);
 
         if (difference <= 1) {
             return 40;
@@ -24,7 +27,7 @@ public class AnvilMenuSD {
         boolean isEnchantingBook = input.has(DataComponents.STORED_ENCHANTMENTS);
         boolean isUsingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
-        return isEnchantingBook || isUsingBook || (input.isEnchanted() && addition.isEnchantable()) || addition.isEnchanted(); // Is the player attempting to enchant an item
+        return isEnchantingBook || isUsingBook || (input.isEnchanted() && addition.isEnchantable()) || addition.isEnchanted();
     }
 
     /**

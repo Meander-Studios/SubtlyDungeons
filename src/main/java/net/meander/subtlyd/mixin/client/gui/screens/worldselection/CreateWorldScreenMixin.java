@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.meander.subtlyd.client.gui.components.GameTabButton;
+import net.meander.subtlyd.client.gui.components.ThumbnailButton;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettingsScreen;
 import net.meander.subtlyd.util.UtilSD;
@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(CreateWorldScreen.class)
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public abstract class CreateWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
@@ -89,8 +90,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
             ci.cancel();
         }
     }
-
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Inject(method = "createNewWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
     private void saveCustomTerrainData(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
         if (newWorldAccess.isPresent()) {
@@ -100,9 +99,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
         }
     }
 
-    /**
-     * Changes the Game Tab Layout
-     */
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
         @Shadow @Final private static Component TITLE;
@@ -152,8 +148,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 worldSettingsLayout.defaultCellSetting().alignHorizontallyCenter();
 
                 /* Game Mode */
-                GameTabButton survivalButton = gameModeLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton survivalButton = gameModeLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("selectWorld.gameMode.survival"),
                                 _ -> {
                                     if (!uiState.isHardcore()) {
@@ -171,8 +167,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 survivalButton.setSelected(() -> uiState.getGameMode() == WorldCreationUiState.SelectedGameMode.SURVIVAL);
 
                 survivalButton.active = uiState.getGameMode() != WorldCreationUiState.SelectedGameMode.HARDCORE;
-                GameTabButton creativeButton = gameModeLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton creativeButton = gameModeLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("selectWorld.gameMode.creative"),
                                 _ -> {
                                     uiState.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE);
@@ -217,8 +213,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 layout.addChild(topRowLayout, 0, 0, screenLayout.newCellSettings().alignHorizontallyLeft());
 
                 /* Difficulty */
-                GameTabButton peacefulButton = difficultyLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton peacefulButton = difficultyLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("options.difficulty.peaceful"),
                                 _ -> uiState.setDifficulty(Difficulty.PEACEFUL),
                                 UtilSD.identifier("textures/gui/sprites/widget/difficulty/peaceful.png"),
@@ -232,8 +228,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 peacefulButton.setTooltip(Tooltip.create(Difficulty.PEACEFUL.getInfo()));
                 peacefulButton.setSelected(() -> uiState.getDifficulty() == Difficulty.PEACEFUL);
 
-                GameTabButton easyButton = difficultyLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton easyButton = difficultyLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("options.difficulty.easy"),
                                 _ -> uiState.setDifficulty(Difficulty.EASY),
                                 UtilSD.identifier("textures/gui/sprites/widget/difficulty/easy.png"),
@@ -247,8 +243,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 easyButton.setTooltip(Tooltip.create(Difficulty.EASY.getInfo()));
                 easyButton.setSelected(() -> uiState.getDifficulty() == Difficulty.EASY);
 
-                GameTabButton normalButton = difficultyLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton normalButton = difficultyLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("options.difficulty.normal"),
                                 _ -> uiState.setDifficulty(Difficulty.NORMAL),
                                 UtilSD.identifier("textures/gui/sprites/widget/difficulty/normal.png"),
@@ -262,8 +258,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 normalButton.setTooltip(Tooltip.create(Difficulty.NORMAL.getInfo()));
                 normalButton.setSelected(() -> uiState.getDifficulty() == Difficulty.NORMAL);
 
-                GameTabButton hardButton = difficultyLayout.addChild(
-                        GameTabButton.builder(
+                ThumbnailButton hardButton = difficultyLayout.addChild(
+                        ThumbnailButton.builder(
                                 Component.translatable("options.difficulty.hard"),
                                 _ -> uiState.setDifficulty(Difficulty.HARD),
                                 UtilSD.identifier("textures/gui/sprites/widget/difficulty/hard.png"),

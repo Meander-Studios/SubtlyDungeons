@@ -54,6 +54,10 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(HusbandryAdvancementsSD.MAKE_STEW_DESC.getString(), "Add ingredients to a Cauldron");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_TITLE.getString(), "I Am Bush");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_DESC.getString(), "Perform a sneak attack while hiding in foliage");
+        translationBuilder.add(AdventureAdvancementsSD.CREATE_CONDUIT_TITLE.getString(), "Maelstrom");
+        translationBuilder.add(AdventureAdvancementsSD.CREATE_CONDUIT_DESC.getString(), "Activate a Conduit");
+        translationBuilder.add(AdventureAdvancementsSD.CREATE_FULL_CONDUIT_TITLE.getString(), "Moskstraumen");
+        translationBuilder.add(AdventureAdvancementsSD.CREATE_FULL_CONDUIT_DESC.getString(), "Bring a Conduit to full power");
         translationBuilder.add("advancements.adventure.voluntary_exile.description", "Drink from an Ominous Bottle.\nMaybe consider staying away from villages for the time being...");
     }
 
@@ -184,6 +188,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("createWorld.custom.biome_scale", "Biome Scale");
         translationBuilder.add("createWorld.custom.continent_scale", "Continent Scale");
         translationBuilder.add("createWorld.custom.erosion_scale", "Erosion Scale");
+        translationBuilder.add("createWorld.custom.ocean_depth_scale", "Ocean Depth Scale");
         translationBuilder.add("createWorld.custom.master_scale", "Master World Generation Scale");
         translationBuilder.add("createWorld.custom.pack", "Custom Terrain");
         translationBuilder.add("createWorld.custom.title", "Custom Terrain");

@@ -9,24 +9,27 @@ import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.util.Mth;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class CustomTerrainSettings {
     public static boolean isWorldCopy = false;
-    public static double masterScale = 1.0;
-    public static double continentScale = 1.0;
-    public static double biomeScale = 1.0;
-    public static double erosionScale = 1.0;
+    public static double masterScale = CustomTerrainSettingsScreen.initialMaster;
+    public static double continentScale = CustomTerrainSettingsScreen.initialContinent;
+    public static double biomeScale = CustomTerrainSettingsScreen.initialBiome;
+    public static double erosionScale = CustomTerrainSettingsScreen.initialErosion;
+    public static double oceanDepthScale = CustomTerrainSettingsScreen.initialOceanDepth;
     private static final String dataFile = "custom_terrain_settings.json";
 
-    public record TerrainData(double masterScale, double continentScale, double biomeScale, double erosionScale) {
+    public record TerrainData(double masterScale, double continentScale, double biomeScale, double erosionScale, double oceanDepthScale) {
         public static final Codec<TerrainData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.DOUBLE.optionalFieldOf("master_scale", 1.0).forGetter(TerrainData::masterScale),
-                Codec.DOUBLE.optionalFieldOf("continent_scale", 1.0).forGetter(TerrainData::continentScale),
-                Codec.DOUBLE.optionalFieldOf("biome_scale", 1.0).forGetter(TerrainData::biomeScale),
-                Codec.DOUBLE.optionalFieldOf("erosion_scale", 1.0).forGetter(TerrainData::erosionScale)
+                Codec.DOUBLE.optionalFieldOf("master_scale", CustomTerrainSettingsScreen.initialMaster).forGetter(TerrainData::masterScale),
+                Codec.DOUBLE.optionalFieldOf("continent_scale", CustomTerrainSettingsScreen.initialContinent).forGetter(TerrainData::continentScale),
+                Codec.DOUBLE.optionalFieldOf("biome_scale", CustomTerrainSettingsScreen.initialBiome).forGetter(TerrainData::biomeScale),
+                Codec.DOUBLE.optionalFieldOf("erosion_scale", CustomTerrainSettingsScreen.initialErosion).forGetter(TerrainData::erosionScale),
+                Codec.DOUBLE.optionalFieldOf("ocean_depth_scale", CustomTerrainSettingsScreen.initialOceanDepth).forGetter(TerrainData::oceanDepthScale)
         ).apply(instance, TerrainData::new));
     }
 
@@ -36,17 +39,15 @@ public class CustomTerrainSettings {
             continentScale = 1.0;
             biomeScale = 1.0;
             erosionScale = 1.0;
+            oceanDepthScale = 1.5;
         } else {
             isWorldCopy = false;
 
-            if (getSettingsScreen() instanceof CustomTerrainSettingsScreen settingsScreen) {
-                masterScale = settingsScreen.initialMaster;
-                continentScale = settingsScreen.initialContinent;
-                biomeScale = settingsScreen.initialBiome;
-                erosionScale = settingsScreen.initialErosion;
-            } else {
-                reset();
-            }
+            masterScale = CustomTerrainSettingsScreen.initialMaster;
+            continentScale = CustomTerrainSettingsScreen.initialContinent;
+            biomeScale = CustomTerrainSettingsScreen.initialBiome;
+            erosionScale = CustomTerrainSettingsScreen.initialErosion;
+            oceanDepthScale = CustomTerrainSettingsScreen.initialOceanDepth;
         }
     }
 
@@ -56,11 +57,18 @@ public class CustomTerrainSettings {
         return currentScreen instanceof CustomTerrainSettingsScreen screen ? screen : null;
     }
 
+    private static double getSoftScale(double initialScale, double newScale) {
+        return initialScale + (newScale - 1) * WorldGeneratorSD.SOFT_SCALAR;
+    }
+
     public static void applyMasterScale(double newMasterScale) {
-        masterScale = newMasterScale;
-        continentScale = newMasterScale;
-        biomeScale = newMasterScale;
-        erosionScale = 1.0 + ((newMasterScale - 1.0) * WorldGeneratorSD.EROSION_ELASTICITY);
+        if (getSettingsScreen() != null) {
+            masterScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            continentScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            biomeScale = Mth.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            erosionScale = Mth.clamp(getSoftScale(CustomTerrainSettingsScreen.initialErosion, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
+            oceanDepthScale = Mth.clamp(getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE_OCEAN);
+        }
     }
 
     public static void saveSettingsToFile(Path worldRoot) {
@@ -69,7 +77,7 @@ public class CustomTerrainSettings {
                 Files.createDirectories(worldRoot);
             }
 
-            TerrainData terrainData = new TerrainData(masterScale, continentScale, biomeScale, erosionScale);
+            TerrainData terrainData = new TerrainData(masterScale, continentScale, biomeScale, erosionScale, oceanDepthScale);
 
             JsonElement encodedData = TerrainData.CODEC.encodeStart(JsonOps.INSTANCE, terrainData).getOrThrow(e -> new RuntimeException("Failed to encode settings: " + e));
 
@@ -85,7 +93,7 @@ public class CustomTerrainSettings {
 
             if (Files.exists(file)) {
                 JsonElement jsonElement = JsonParser.parseString(Files.readString(file));
-                TerrainData data = TerrainData.CODEC.parse(JsonOps.INSTANCE, jsonElement).getOrThrow(msg -> new RuntimeException("Failed to decode settings: " + msg));
+                TerrainData data = TerrainData.CODEC.parse(JsonOps.INSTANCE, jsonElement).getOrThrow(e -> new RuntimeException("Failed to decode settings: " + e));
 
                 isWorldCopy = true;
 
@@ -93,6 +101,7 @@ public class CustomTerrainSettings {
                 continentScale = data.continentScale();
                 biomeScale = data.biomeScale();
                 erosionScale = data.erosionScale();
+                oceanDepthScale = data.oceanDepthScale();
             }
         } catch (Exception e) {
             UtilSD.LOGGER.error("Error loading custom terrain settings from file: {}", e.getMessage());

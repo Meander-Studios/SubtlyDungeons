@@ -32,8 +32,6 @@ public class CustomTerrainSettingsScreen extends Screen {
     private static final int LONG_SLIDER_WIDTH = 310;
     private static final int SLIDER_WIDTH = 150;
     private static final int SLIDER_HEIGHT = 20;
-    private static final double MIN_VALUE = 0.1;
-    private static final double MAX_VALUE = 10.0;
     private final Screen lastScreen;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
@@ -41,11 +39,15 @@ public class CustomTerrainSettingsScreen extends Screen {
     private AbstractSliderButton continentSlider;
     private AbstractSliderButton biomeSlider;
     private AbstractSliderButton erosionSlider;
-    public final double initialMaster;
-    public final double initialContinent;
-    public final double initialBiome;
-    public final double initialErosion;
-
+    private AbstractSliderButton oceanSlider;
+    public static final double MIN_VALUE = 0.1;
+    public static final double MAX_VALUE = 10.0;
+    public static final double MAX_VALUE_OCEAN = 1.75;
+    public static double initialMaster = 1.0;
+    public static double initialContinent = 1.0;
+    public static double initialBiome = 1.0;
+    public static double initialErosion = 1.0;
+    public static double initialOceanDepth = 1.5;
 
     public CustomTerrainSettingsScreen(Screen lastScreen) {
         this.lastScreen = lastScreen;
@@ -53,6 +55,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         initialContinent = CustomTerrainSettings.continentScale;
         initialBiome = CustomTerrainSettings.biomeScale;
         initialErosion = CustomTerrainSettings.erosionScale;
+        initialOceanDepth = CustomTerrainSettings.oceanDepthScale;
 
         super(Component.translatable("createWorld.custom.title"));
     }
@@ -63,7 +66,9 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         list = layout.addToContents(new SliderList());
 
-        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT, Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE, CustomTerrainSettings.masterScale,
+        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
+                Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.masterScale,
                 (newValue) -> {
                     CustomTerrainSettings.applyMasterScale(newValue);
                     updateSliders();
@@ -85,8 +90,13 @@ public class CustomTerrainSettingsScreen extends Screen {
                 CustomTerrainSettings.erosionScale, v -> CustomTerrainSettings.erosionScale = v
         );
 
+        oceanSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, MAX_VALUE_OCEAN,
+                CustomTerrainSettings.oceanDepthScale, v -> CustomTerrainSettings.oceanDepthScale = v
+        );
+
         list.addDouble(continentSlider, biomeSlider);
-        list.addDouble(erosionSlider, null);
+        list.addDouble(erosionSlider, oceanSlider);
         createFooterButtons();
         layout.visitWidgets(this::addRenderableWidget);
         repositionElements();
@@ -122,6 +132,10 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         if (erosionSlider instanceof RatioSliderButton button) {
             button.setRatioValue(CustomTerrainSettings.erosionScale);
+        }
+
+        if (oceanSlider instanceof RatioSliderButton button) {
+            button.setRatioValue(CustomTerrainSettings.oceanDepthScale);
         }
     }
 
@@ -167,6 +181,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         CustomTerrainSettings.continentScale = initialContinent;
         CustomTerrainSettings.biomeScale = initialBiome;
         CustomTerrainSettings.erosionScale = initialErosion;
+        CustomTerrainSettings.oceanDepthScale = initialOceanDepth;
 
         minecraft.gui.setScreen(lastScreen);
     }
@@ -193,6 +208,11 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         public void addDouble(AbstractWidget leftWidget, AbstractWidget rightWidget) {
             addEntry(new Entry(leftWidget, rightWidget));
+        }
+
+        @Override
+        public int getRowWidth() {
+            return 310;
         }
 
         public class Entry extends ContainerObjectSelectionList.Entry<SliderList.Entry> {

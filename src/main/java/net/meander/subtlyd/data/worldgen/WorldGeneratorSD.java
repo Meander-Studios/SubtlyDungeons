@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
+import net.meander.subtlyd.client.gui.screens.CustomTerrainSettingsScreen;
 import net.meander.subtlyd.data.worldgen.features.FeatureUtilsSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
@@ -24,6 +25,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.data.worldgen.material.OverworldMaterialRules;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -33,6 +35,7 @@ import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackFormat;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -41,17 +44,19 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.densityfunction.DensityFunction;
 import net.minecraft.world.level.levelgen.densityfunction.DensityFunctions;
-import net.minecraft.world.level.levelgen.densityfunction.generator.ShiftedNoiseFunction;
-import net.minecraft.world.level.levelgen.densityfunction.op.MarkerFunction;
+import net.minecraft.world.level.levelgen.densityfunction.generator.NoiseFunction;
 import net.minecraft.world.level.levelgen.feature.FallenTreeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.ShelfMushroomDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
+import org.joml.Vector3f;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -60,9 +65,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
-    private static final double BIOME_SCALER = 1.5;
-    public static final double EROSION_ELASTICITY = 0.15;
+    public static final double SOFT_SCALAR = 0.15;
+    private static final double BIOME_SCALAR = 1.5;
+    private static final double EROSION_SCALAR = CustomTerrainSettingsScreen.initialErosion + ((CustomTerrainSettings.biomeScale - 1.0) * SOFT_SCALAR);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final ResourceKey<DensityFunction> offsetKey = ResourceKey.create(Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/offset"));
     private final PackOutput packOutput;
     private final CompletableFuture<HolderLookup.Provider> completableFuture;
 
@@ -76,7 +83,7 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     private static String resolveRegistryPath(ResourceKey<? extends Registry<?>> registryKey) {
-        return "/data" + "/" + registryKey.identifier().getNamespace() + "/" + registryKey.identifier().getPath();
+        return "/data/" + registryKey.identifier().getNamespace() + "/" + registryKey.identifier().getPath();
     }
 
     private static void modifyTrees(final HolderLookup.Provider provider, final Path root, RegistryOps<JsonElement> ops) throws Exception {
@@ -199,18 +206,18 @@ public class WorldGeneratorSD implements DataProvider {
         return root;
     }
 
+    /**
+     * @apiNote xzScale is deprecated, though is required for such precise control over biome scale.
+     */
+    @SuppressWarnings("deprecation")
     private static DensityFunction scaleDensityNode(final DensityFunction densityNode, final double scale) {
-        if (densityNode instanceof ShiftedNoiseFunction shiftedNoise) {
-            double roundedScale = MthSD.roundToTenThousandths(shiftedNoise.xzScale() / scale);
+        if (densityNode instanceof NoiseFunction noiseFunction) {
+            double roundedScale = MthSD.roundToTenThousandths(noiseFunction.xzScale() / scale);
 
-            return DensityFunctions.shiftedNoise2d(shiftedNoise.shiftX(), shiftedNoise.shiftZ(), roundedScale, shiftedNoise.noise().noiseData());
-        } else if (densityNode instanceof MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped)) {
-            DensityFunction scaledDensityNode = scaleDensityNode(wrapped, scale);
-
-            return new MarkerFunction(type, scaledDensityNode);
+            return DensityFunctions.shiftedNoise2d(noiseFunction.shiftX(), noiseFunction.shiftZ(), roundedScale, noiseFunction.noise());
         }
 
-        return densityNode;
+        return densityNode.rewriteChildren(child -> scaleDensityNode(child, scale));
     }
 
     private static JsonObject getModifiedSimpleDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps, final ResourceKey<DensityFunction> key, final double scale) {
@@ -222,6 +229,27 @@ public class WorldGeneratorSD implements DataProvider {
         JsonElement densityNodeElement = DensityFunction.CODEC.encodeStart(regOps, scaledDensityNode).getOrThrow(IllegalStateException::new);
 
         return densityNodeElement.getAsJsonObject();
+    }
+
+    private static JsonObject getModifiedOffsetDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps) {
+        ResourceKey<DensityFunction> offsetKey = NoiseRouterData.OVERWORLD_FUNCTIONS.offset();
+        HolderLookup.RegistryLookup<DensityFunction> registry = provider.lookupOrThrow(Registries.DENSITY_FUNCTION);
+
+        float scale = (float) CustomTerrainSettings.oceanDepthScale - 1.0F;
+        DensityFunction originalOffset = registry.getOrThrow(offsetKey).value();
+
+        DensityFunction invGlobalOffset = DensityFunctions.constant(-NoiseRouterData.GLOBAL_OFFSET);
+        DensityFunction depthBasis = DensityFunctions.add(originalOffset, invGlobalOffset);
+        DensityFunction modifiedDepth = DensityFunctions.mul(
+                DensityFunctions.min(DensityFunctions.constant(0.0F), depthBasis),
+                DensityFunctions.constant(scale)
+        );
+
+        DensityFunction modifiedOffset = DensityFunctions.add(originalOffset, modifiedDepth);
+
+        JsonElement offsetElement = DensityFunction.CODEC.encodeStart(regOps, modifiedOffset).getOrThrow(IllegalStateException::new);
+
+        return offsetElement.getAsJsonObject();
     }
 
     private static List<TreeDecorator> getModifiedTrunkDecorator(final ResourceKey<Feature> key, final List<TreeDecorator> decorators) {
@@ -294,12 +322,23 @@ public class WorldGeneratorSD implements DataProvider {
     public static void customizeWorldGeneration(Path tempPackDir, HolderLookup.Provider provider) {
         try {
             RegistryOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
-            double EROSION_SCALER = 1.0 + ((CustomTerrainSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
+            HolderLookup.RegistryLookup<NoiseGeneratorSettings> noiseSettingsReg = provider.lookupOrThrow(Registries.NOISE_SETTINGS);
+            HolderLookup.RegistryLookup<MaterialRule> materialRuleReg = provider.lookupOrThrow(Registries.MATERIAL_RULE);
+
+            MaterialRule overworldMaterialRule = materialRuleReg.getOrThrow(OverworldMaterialRules.OVERWORLD).value();
+            NoiseGeneratorSettings overworldNoiseSettings = noiseSettingsReg.getOrThrow(NoiseGeneratorSettings.OVERWORLD).value();
+
+            JsonElement overworldSettings = NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(ops, overworldNoiseSettings).getOrThrow(IllegalStateException::new);
+            JsonElement materialRule = MaterialRule.CODEC.encodeStart(ops, overworldMaterialRule).getOrThrow(IllegalStateException::new);
+
             final Path packRoot = tempPackDir.resolve("custom_terrain");
             final Path continentsPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
             final Path erosionPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion().identifier());
             final Path temperaturePath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature().identifier());
             final Path vegetationPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation().identifier());
+            final Path offsetPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, offsetKey.identifier());
+            final Path noiseSettingsPath = resolveResourcePath(packRoot, Registries.NOISE_SETTINGS, NoiseGeneratorSettings.OVERWORLD.identifier());
+            final Path materialRulePath = resolveResourcePath(packRoot, Registries.MATERIAL_RULE, OverworldMaterialRules.OVERWORLD.identifier());
 
             JsonObject packMeta = buildPackMeta();
 
@@ -308,12 +347,18 @@ public class WorldGeneratorSD implements DataProvider {
             Files.createDirectories(erosionPath.getParent());
             Files.createDirectories(temperaturePath.getParent());
             Files.createDirectories(vegetationPath.getParent());
+            Files.createDirectories(offsetPath.getParent());
+            Files.createDirectories(noiseSettingsPath.getParent());
+            Files.createDirectories(materialRulePath.getParent());
 
             Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(packMeta));
-            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  CustomTerrainSettings.continentScale * BIOME_SCALER)));
-            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALER)));
-            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALER)));
-            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALER)));
+            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  CustomTerrainSettings.continentScale * BIOME_SCALAR)));
+            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALAR)));
+            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALAR)));
+            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALAR)));
+            Files.writeString(offsetPath, GSON.toJson(getModifiedOffsetDensityFunction(provider, ops)));
+            Files.writeString(noiseSettingsPath, GSON.toJson(overworldSettings));
+            Files.writeString(materialRulePath, GSON.toJson(materialRule));
 
             modifyTrees(provider, packRoot, ops);
         } catch (Exception e) {
@@ -323,32 +368,46 @@ public class WorldGeneratorSD implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        double EROSION_SCALER = 1.0 + ((CustomTerrainSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
         Path outputFolder = packOutput.getOutputFolder();
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
         try {
             HolderLookup.Provider provider = completableFuture.join();
+            HolderLookup.RegistryLookup<NoiseGeneratorSettings> noiseRegistry = provider.lookupOrThrow(Registries.NOISE_SETTINGS);
+            HolderLookup.RegistryLookup<MaterialRule> materialRuleReg = provider.lookupOrThrow(Registries.MATERIAL_RULE);
+
             RegistryOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
+            MaterialRule overworldMaterialRule = materialRuleReg.getOrThrow(OverworldMaterialRules.OVERWORLD).value();
+            NoiseGeneratorSettings overworldNoiseSettings = noiseRegistry.getOrThrow(NoiseGeneratorSettings.OVERWORLD).value();
 
-            JsonObject continents = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), CustomTerrainSettings.continentScale * BIOME_SCALER);
-            JsonObject erosion = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALER);
-            JsonObject temperature = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALER);
-            JsonObject vegetation = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALER);
+            JsonObject continents = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), CustomTerrainSettings.continentScale * BIOME_SCALAR);
+            JsonObject erosion = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALAR);
+            JsonObject temperature = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALAR);
+            JsonObject vegetation = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALAR);
+            JsonObject offset = getModifiedOffsetDensityFunction(provider, ops);
+            JsonElement noiseSettings = NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(ops, overworldNoiseSettings).getOrThrow(IllegalStateException::new);
+            JsonElement materialRule = MaterialRule.CODEC.encodeStart(ops, overworldMaterialRule).getOrThrow(IllegalStateException::new);
 
-            Path continentsPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
-            Path erosionPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion().identifier());
-            Path temperaturePath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature().identifier());
-            Path vegetationPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation().identifier());
+            final Path continentsPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
+            final Path erosionPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion().identifier());
+            final Path temperaturePath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature().identifier());
+            final Path vegetationPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation().identifier());
+            final Path offsetPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, offsetKey.identifier());
+            final Path noiseSettingsPath = resolveResourcePath(outputFolder, Registries.NOISE_SETTINGS, NoiseGeneratorSettings.OVERWORLD.identifier());
+            final Path materialRulePath = resolveResourcePath(outputFolder, Registries.MATERIAL_RULE, OverworldMaterialRules.OVERWORLD.identifier());
 
             futures.add(DataProvider.saveStable(cache, continents, continentsPath));
             futures.add(DataProvider.saveStable(cache, erosion, erosionPath));
             futures.add(DataProvider.saveStable(cache, temperature, temperaturePath));
             futures.add(DataProvider.saveStable(cache, vegetation, vegetationPath));
+            futures.add(DataProvider.saveStable(cache, offset, offsetPath));
+            futures.add(DataProvider.saveStable(cache, noiseSettings, noiseSettingsPath));
+            futures.add(DataProvider.saveStable(cache, materialRule, materialRulePath));
             modifyTrees(provider, outputFolder, ops, cache, futures);
         } catch (Exception e) {
             UtilSD.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
+
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
@@ -358,9 +417,9 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     public static class BiomeModifier {
-        private static final int SKY_COLOR_DARK = 0x677AA1;
-        private static final int FOG_COLOR_DARK = 0x8495B8;
-        private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
+        private static final Vector3f SKY_COLOR_DARK = ARGB.vector3fFromRGB24(0x677AA1);
+        private static final Vector3f FOG_COLOR_DARK = ARGB.vector3fFromRGB24(0x8495B8);
+        private static final Vector3f FOG_COLOR_SOGGY = ARGB.vector3fFromRGB24(0xCAE8E6);
 
         public static void run() {
             UtilSD.LOGGER.debug("Modifying world generation...");
@@ -373,7 +432,7 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         private static void modifySwampLike() {
-            final int SKY_COLOR = 0xD4E2FA;
+            final Vector3f SKY_COLOR = ARGB.vector3fFromRGB24(0xD4E2FA);
             final Identifier mangroveSwampAtmosphere = UtilSD.identifier("mangrove_swamp_atmosphere");
             final Identifier swampAtmosphere = UtilSD.identifier("swamp_atmosphere");
             final Identifier swampFrogWeight = UtilSD.identifier("swamp_frog_weight");
@@ -443,6 +502,11 @@ public class WorldGeneratorSD implements DataProvider {
                     ((_, biomeModificationContext) -> {
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 8.0F);
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 32.0F);
+                    }))
+            .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_SLIGHTLY_FOGGY),
+                    ((_, biomeModificationContext) -> {
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 64.0F);
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 256.0F);
                     }));
         }
     }
