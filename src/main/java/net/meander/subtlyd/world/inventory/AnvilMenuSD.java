@@ -1,8 +1,7 @@
 package net.meander.subtlyd.world.inventory;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.data.tags.EnchantmentTagsSD;
-import net.meander.subtlyd.world.item.ItemStackSD;
+import net.meander.subtlyd.tags.EnchantmentTagsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
@@ -10,13 +9,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
+/**
+ * @see net.minecraft.world.inventory.AnvilMenu
+ */
 public class AnvilMenuSD {
     public static int getCostByEnchantability(int input, int addition) {
-        int difference = (Mth.abs(input - addition));
+        int difference = Mth.abs(input - addition);
 
         if (difference <= 1) {
             return 40;
         }
+
         return 40 + Mth.ceil(difference * 2);
     }
 
@@ -24,7 +27,7 @@ public class AnvilMenuSD {
         boolean isEnchantingBook = input.has(DataComponents.STORED_ENCHANTMENTS);
         boolean isUsingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
-        return isEnchantingBook || isUsingBook || (input.isEnchanted() && addition.isEnchantable()) || addition.isEnchanted(); // Is the player attempting to enchant an item
+        return isEnchantingBook || isUsingBook || (input.isEnchanted() && addition.isEnchantable()) || addition.isEnchanted();
     }
 
     /**
@@ -41,6 +44,7 @@ public class AnvilMenuSD {
         if (input.is(Items.ENCHANTED_BOOK)) {
             inputLevel = EnchantmentHelperSD.getEnchantmentCost(input);
         }
+
         if (addition.is(Items.ENCHANTED_BOOK)) {
             additionLevel = EnchantmentHelperSD.getEnchantmentCost(addition);
         }
@@ -55,7 +59,7 @@ public class AnvilMenuSD {
      */
     public static int getMagicLimit(ItemStack input, ItemStack addition) {
         boolean hasGlyphAffinity = EnchantmentHelper.hasTag(input, EnchantmentTagsSD.INCREASES_MAGIC_LIMIT);
-        int magicLimit = getCostByEnchantability(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
+        int magicLimit = getCostByEnchantability(input.getEnchantability(), addition.getEnchantability());
 
         return hasGlyphAffinity ? Mth.ceil(magicLimit * 1.5F) : magicLimit;
     }
