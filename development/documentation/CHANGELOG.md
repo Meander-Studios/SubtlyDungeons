@@ -15,7 +15,7 @@
 - Once an ingredient is added, the cauldron's stew becomes a Light Stew
   - These can also be eaten, though have half the nutrition as a full crafted stew
 - One cauldron can hold 3 bowls of stew
-- Light Stews made with flowers that would be used to make a suspicious stew, do not grant status effects
+- Light Stews made with flowers that would be used to make a suspicious stew do not grant status effects
 
 ### Items
 - Added Light Stew
@@ -110,11 +110,11 @@
   - Toggles a blocking shield's visibility
 - Added Entity Culling option
   - Determines the entity culling method
-  - Frustrum
+  - Frustum
     - The default culling method. Hides entities that are outside the player's FOV
   - Occlusion
     - Hides entities that are behind blocks or fog
-    - Performs after frustrum culling
+    - Performs after frustum culling
 
 ### Game Rules
 - Added Advanced Mobs game rule
@@ -199,10 +199,10 @@
 
 #### Dark Forest
 - Changed understory to have sparse rocks
-- Changed canopys to be larger
+- Changed canopies to be larger
 - Changed dark oak trees to be taller
 - Changed the sky to be darker
-- Changed the ratio of Dark Oaks trees to other vegetation and huge mushrooms
+- Changed the ratio of Dark Oak trees to other vegetation and huge mushrooms
 - Changed red mushroom caps to sometimes be slightly shorter
 - Added small mushroom rings around huge mushrooms
 - Changed mushroom generation rate
@@ -382,7 +382,7 @@
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
-- Fixed bug preventing Redstone comparisions to work with Potion Cauldrons
+- Fixed bug preventing Redstone comparisons to work with Potion Cauldrons
 - Fixed bug that caused Water Bottles to completely fill Cauldrons
 - Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
 - Fixed [BUG #76] Tents Z-Fight with their pegs
