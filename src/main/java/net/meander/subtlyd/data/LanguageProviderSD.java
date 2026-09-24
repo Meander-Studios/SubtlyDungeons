@@ -62,7 +62,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
     }
 
     private void attributes(TranslationBuilder translationBuilder) {
-        translationBuilder.add(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
+        translationBuilder.addAttribute(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
     }
 
     private void stats(TranslationBuilder translationBuilder) {
