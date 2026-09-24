@@ -1,4 +1,7 @@
-# [5.0 Release Candidate 1] - UNRELEASED
+# [5.0.1] - 9/23/26
+- Fixed a bug causing leaf sounds to not play
+
+# [5.0] - 9/15/26
 ## Technical Changes
 ### Bug Fixes
 - Fixed a bug relating to Multiplayer Server icons
