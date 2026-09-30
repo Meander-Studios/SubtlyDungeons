@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.structure.structures;
 
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
@@ -28,13 +27,12 @@ public class OceanMonumentStructureMixin {
             StructurePiece topPiece = pieces.getFirst();
             int centerX = context.chunkPos().getMiddleBlockX();
             int centerZ = context.chunkPos().getMiddleBlockZ();
-            int floorY = context.chunkGenerator().getBaseHeight(
+            int floorY = context.chunkGenerator().getBaseColumn(
                     centerX,
                     centerZ,
-                    Heightmap.Types.OCEAN_FLOOR_WG,
                     context.heightAccessor(),
                     context.randomState()
-            );
+            ).findTopSolidBlockY();
             int shiftDown = floorY - CLASSIC_OCEAN_FLOOR_Y;
 
             if (shiftDown != 0) {

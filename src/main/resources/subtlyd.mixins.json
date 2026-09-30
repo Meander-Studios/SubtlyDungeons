@@ -29,7 +29,6 @@
     "common.world.entity.monster.RaiderMixin",
     "common.world.entity.monster.ZombieMixin",
     "common.world.entity.projectile.EvokerFangsMixin",
-    "common.world.entity.projectile.ProjectileMomentumMixin",
     "common.world.entity.projectile.ThrownTridentMixin",
     "common.world.entity.projectile.arrow.AbstractArrowMixin",
     "common.world.entity.projectile.arrow.ArrowMixin",

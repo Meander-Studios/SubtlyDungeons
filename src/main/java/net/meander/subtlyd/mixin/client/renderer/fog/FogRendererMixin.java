@@ -23,7 +23,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FogRendererMixin {
 
     @Inject(method = "setupFog", at = @At("RETURN"))
-    private void setupFog(final Camera camera, final int renderDistanceInChunks, final DeltaTracker deltaTracker, final float darkenWorldAmount, final ClientLevel level, CallbackInfoReturnable<FogData> cir) {
+    private void setupFog(final Camera camera,
+                          final int renderDistanceInChunks,
+                          final DeltaTracker deltaTracker,
+                          final float darkenWorldAmount,
+                          final ClientLevel level,
+                          final boolean shouldCreateBossFog,
+                          CallbackInfoReturnable<FogData> cir
+    ) {
         FogData fogData = cir.getReturnValue();
 
         setFogForCulling(fogData);
@@ -32,7 +39,7 @@ public class FogRendererMixin {
 
     @Inject(method = "computeFogColor", at = @At("RETURN"))
     private void adjustWaterFogColor(final Camera camera, final float partialTicks, final ClientLevel level, final int renderDistance, final float darkenWorldAmount, final Vector4f dest, CallbackInfo ci) {
-        if (camera.getFluidInCamera() == FogType.WATER && shouldSeeDarkOcean(camera)) {
+        if (camera.getFogType() == FogType.WATER && shouldSeeDarkOcean(camera)) {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {
@@ -63,7 +70,7 @@ public class FogRendererMixin {
     }
 
     private void adjustWaterFogDistance(final Camera camera, FogData fogData, final ClientLevel level) {
-        if (camera.getFluidInCamera() == FogType.WATER && shouldSeeDarkOcean(camera)) {
+        if (camera.getFogType() == FogType.WATER && shouldSeeDarkOcean(camera)) {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {

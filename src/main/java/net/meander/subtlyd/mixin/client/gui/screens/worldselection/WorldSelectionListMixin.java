@@ -1,12 +1,13 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
-import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
@@ -46,7 +47,7 @@ public class WorldSelectionListMixin {
             CustomTerrainSettings.loadSettingsFromFile(oldWorldDir);
         }
 
-        @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+        @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void modifyWorldIconWidth(Args args) {
             if (CAN_CHANGE_UI) {
                 args.set(6, ICON_WIDTH);
@@ -67,7 +68,7 @@ public class WorldSelectionListMixin {
          * Replaces the isMouseOver with isMouseWithin
          */
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
-        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
+        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, final int relX, final int relY, final int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
             if (CAN_CHANGE_UI) {
                 return isMouseWithin(mouseX, mouseY, getContentX() + ICON_WIDTH, getContentY() + size);
             }
@@ -75,12 +76,12 @@ public class WorldSelectionListMixin {
             return instance.mouseOverIcon(relX, relY, size);
         }
 
-        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
-        private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
+        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+        private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height) {
             if (CAN_CHANGE_UI) {
                 int MID_ICON = getContentX() + ICON_WIDTH / 4;
 
-                instance.blitSprite(renderPipeline, location, MID_ICON, getContentY(), width, height);
+                instance.blitSprite(RenderPipelines.GUI_TEXTURED, location, MID_ICON, getContentY(), width, height);
             }
         }
 
@@ -111,7 +112,7 @@ public class WorldSelectionListMixin {
          * @param top The top edge of the rectangle.
          * @return Whether the mouse is within this rectangle or not.
          */
-        private boolean isMouseWithin(int mouseX, int mouseY, int right, int top) {
+        private boolean isMouseWithin(final int mouseX, final int mouseY, final int right, int top) {
             return mouseX >= getContentX()
                     && mouseX < right
                     && mouseY >= getContentY()

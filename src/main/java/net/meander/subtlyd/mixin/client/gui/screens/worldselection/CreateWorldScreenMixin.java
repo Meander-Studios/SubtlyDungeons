@@ -101,7 +101,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
-        @Shadow @Final private static Component TITLE;
         @Shadow @Final private static Component ALLOW_COMMANDS;
         @Shadow @Final @Mutable private EditBox nameEdit;
         private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");
@@ -112,10 +111,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
         private static final Component HARDCORE_INFO = Component.translatable("selectWorld.gameMode.hardcore.info");
         private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
 
-        public GameTabMixin(EditBox nameEdit) {
-            super(TITLE);
+        public GameTabMixin() {
 
-            this.nameEdit = nameEdit;
         }
 
         @SuppressWarnings("unchecked")
@@ -329,8 +326,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
         @Shadow @Final private Button customizeTypeButton;
         @Shadow @Final CreateWorldScreen this$0;
 
-        public WorldTabMixin(Component title) {
-            super(title);
+        public WorldTabMixin() {
         }
 
         @Inject(method = "<init>", at = @At("RETURN"))

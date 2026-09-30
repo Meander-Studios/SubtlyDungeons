@@ -37,7 +37,6 @@ public class ServerAdvancementManagerMixin {
     @Shadow @Final @Mutable private Map<Identifier, AdvancementHolder> advancements;
     @Shadow @Final @Mutable private AdvancementTree tree;
 
-    private static final Identifier ADVENTURE_ROOT = Identifier.withDefaultNamespace("adventure/root");
     private static final Identifier BALANCED_DIET = Identifier.withDefaultNamespace("husbandry/balanced_diet");
     private static final Identifier COUNTRY_LODE = Identifier.withDefaultNamespace("adventure/use_lodestone");
     private static final Identifier SUBSPACE_BUBBLE = Identifier.withDefaultNamespace("nether/fast_travel");
@@ -61,7 +60,6 @@ public class ServerAdvancementManagerMixin {
     private static final List<Identifier> ADVANCEMENTS = List.of(
             BALANCED_DIET,
             COUNTRY_LODE,
-            ADVENTURE_ROOT,
             SUBSPACE_BUBBLE,
             VOLUNTARY_EXILE,
             ADVENTURING_TIME
@@ -179,8 +177,6 @@ public class ServerAdvancementManagerMixin {
 
         if (advancementId == BALANCED_DIET) {
             modifyCriteria(criteria, mutableRequirements, registries, FOODS);
-        } else if (advancementId == ADVENTURE_ROOT) {
-            displayInfo = modifyDisplay(displayInfo, registries, Items.BURIED_TREASURE_MAP);
         } else if (advancementId == SUBSPACE_BUBBLE) {
             displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
         } else if (advancementId == VOLUNTARY_EXILE) {

@@ -32,7 +32,7 @@ public class LightmapRenderStateExtractorMixin {
         Camera camera = renderer.mainCamera();
         ClientLevel level = minecraft.level;
 
-        if (level != null && camera.getFluidInCamera() == FogType.WATER && level.getBiome(camera.blockPosition()).is(BiomeTags.IS_OCEAN)) {
+        if (level != null && camera.getFogType() == FogType.WATER && level.getBiome(camera.blockPosition()).is(BiomeTags.IS_OCEAN)) {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {

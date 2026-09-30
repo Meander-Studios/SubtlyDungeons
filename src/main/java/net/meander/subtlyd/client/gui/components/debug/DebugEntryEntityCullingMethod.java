@@ -1,6 +1,9 @@
 package net.meander.subtlyd.client.gui.components.debug;
 
+import net.meander.subtlyd.client.EntityCullingMethod;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.components.debug.DebugGroups;
 import net.minecraft.client.gui.components.debug.DebugScreenDisplayer;
 import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.world.level.Level;
@@ -11,9 +14,10 @@ public class DebugEntryEntityCullingMethod implements DebugScreenEntry {
 	@Override
 	public void display(final DebugScreenDisplayer displayer, final @Nullable Level serverOrClientLevel, final @Nullable LevelChunk clientChunk, final @Nullable LevelChunk serverChunk) {
 		Minecraft minecraft = Minecraft.getInstance();
-		String entityCullingMethod = "Culling: " + minecraft.options.entityCulling().get().caption().getString();
+		Options options = minecraft.options;
+		EntityCullingMethod cullingMethod = options.entityCulling().get();
 
-		displayer.addLine(entityCullingMethod);
+		displayer.addFactToGroup(DebugGroups.PERFORMANCE_IMPACTORS, "Culling", fact -> fact.value(cullingMethod.caption().getString()));
 	}
 
 	@Override
