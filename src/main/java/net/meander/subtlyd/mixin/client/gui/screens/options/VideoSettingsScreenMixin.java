@@ -12,14 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(VideoSettingsScreen.class)
-public class VideoSettingsScreenMixin { @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
-    private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
-        List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-
-        optionInstanceList.add(8, options.experimentalGui());
-        cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
-    }
-
+public class VideoSettingsScreenMixin {
     @Inject(method = "qualityOptions", at = @At("RETURN"), cancellable = true)
     private static void qualityOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
