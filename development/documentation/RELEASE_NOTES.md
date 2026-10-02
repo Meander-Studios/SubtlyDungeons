@@ -2,7 +2,7 @@
 ## New Features
 
 ## Changes
-- Reverted change to projectile y-momentum
+- Reverted change to projectile y-axis momentum
 
 ## Technical Changes
 ### Bug Fixes
