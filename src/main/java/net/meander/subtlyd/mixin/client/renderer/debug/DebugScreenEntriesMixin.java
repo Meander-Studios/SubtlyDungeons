@@ -23,9 +23,13 @@ public abstract class DebugScreenEntriesMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void modifyProfiles(CallbackInfo ci) {
         Map<DebugScreenProfile, Map<Identifier, DebugScreenEntryStatus>> mutableProfiles = new HashMap<>(PROFILES);
+        Map<Identifier, DebugScreenEntryStatus> defaultEntries = new HashMap<>(mutableProfiles.getOrDefault(DebugScreenProfile.DEFAULT, Map.of()));
         Map<Identifier, DebugScreenEntryStatus> performanceEntries = new HashMap<>(mutableProfiles.getOrDefault(DebugScreenProfile.PERFORMANCE, Map.of()));
 
+        defaultEntries.put(DebugScreenEntriesSD.ENTITY_CULLING_METHOD, DebugScreenEntryStatus.IN_OVERLAY);
         performanceEntries.put(DebugScreenEntriesSD.ENTITY_CULLING_METHOD, DebugScreenEntryStatus.IN_OVERLAY);
+
+        mutableProfiles.put(DebugScreenProfile.DEFAULT, Map.copyOf(defaultEntries));
         mutableProfiles.put(DebugScreenProfile.PERFORMANCE, Map.copyOf(performanceEntries));
 
         PROFILES = Map.copyOf(mutableProfiles);
