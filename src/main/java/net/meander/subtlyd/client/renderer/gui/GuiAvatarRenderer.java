@@ -73,6 +73,9 @@ public class GuiAvatarRenderer {
 
     public void extractRenderState(final GuiGraphicsExtractor guiGraphics, final int x, final int y, final int entityScale, final float mouseX, final float mouseY) {
         AvatarRenderState state = new AvatarRenderState();
+
+        setSkin(state);
+
         EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         AvatarRenderer<AbstractClientPlayer> playerRenderer = dispatcher.playerRenderers.get(state.skin.model());
 
@@ -86,7 +89,6 @@ public class GuiAvatarRenderer {
             PlayerModel model = playerRenderer.getModel();
             Model.Simple playerModel = new Model.Simple(model.root(), model.renderType());
 
-            setSkin(state);
             followCursor(state, x, y, mouseX, mouseY);
             model.setupAnim(state);
             extractCapeRenderState(guiGraphics, state, entityScale, x0, y0, x1, y1);
