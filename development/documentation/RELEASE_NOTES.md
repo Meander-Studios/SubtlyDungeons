@@ -1,4 +1,4 @@
-# [6.0] - UNRELEASED
+# [5.0.2] - UNRELEASED
 ## New Features
 
 ## Changes
