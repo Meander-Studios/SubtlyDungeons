@@ -38,9 +38,14 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Nullable private Button recreateButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
-    private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
+    private static final boolean USE_EXPERIMENTAL_GUI = Minecraft.getInstance().options.experimentalGui().get();
     private final int ROW_SPACING = 4;
     private final Minecraft minecraft = Minecraft.getInstance();
+
+    @Shadow private void createFooterButtons(final Consumer<WorldSelectionList.WorldListEntry> joinWorld, final WorldSelectionList list) {}
+    @Shadow private Button createDebugWorldRecreateButton() {
+        throw new AssertionError();
+    }
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);
@@ -48,20 +53,12 @@ public abstract class SelectWorldScreenMixin extends Screen {
         this.lastScreen = lastScreen;
     }
 
-    @Shadow private void createFooterButtons(final Consumer<WorldSelectionList.WorldListEntry> joinWorld, final WorldSelectionList list) {}
-    @Shadow private Button createDebugWorldRecreateButton() {
-        throw new AssertionError();
-    }
-
-    /**
-     * Changes the location of the world option buttons.
-     */
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void init(CallbackInfo ci) {
-        if (CAN_CHANGE_UI) {
-            final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
+    private void rearrangeGui(CallbackInfo ci) {
+        if (USE_EXPERIMENTAL_GUI) {
             final int LARGE_BUTTON_WIDTH = 64;
             final int BUTTON_WIDTH = 48;
+            final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
 
             layout.setFooterHeight(35);
 
@@ -121,7 +118,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
 
     @Inject(method = "createFooterButtons", at = @At("HEAD"), cancellable = true)
     private void createFooterButtons(Consumer<WorldSelectionList.WorldListEntry> joinWorld, WorldSelectionList list, CallbackInfo ci) {
-        if (CAN_CHANGE_UI) {
+        if (USE_EXPERIMENTAL_GUI) {
             int BUTTON_MIDDLE_X = 100;
 
             GridLayout footerLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));

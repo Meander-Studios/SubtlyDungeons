@@ -85,6 +85,7 @@
     "client.gui.screens.TitleScreenMixin",
     "client.gui.screens.WinScreenMixin",
     "client.gui.screens.inventory.tooltip.ClientBundleTooltipMixin",
+    "client.gui.screens.multiplayer.ServerSelectionListMixin",
     "client.gui.screens.options.AccessibilityOptionsScreenMixin",
     "client.gui.screens.options.VideoSettingsScreenMixin",
     "client.gui.screens.options.controls.ControlsScreenMixin",

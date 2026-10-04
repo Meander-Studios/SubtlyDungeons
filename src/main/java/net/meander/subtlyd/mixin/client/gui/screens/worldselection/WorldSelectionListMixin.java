@@ -5,6 +5,7 @@ import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -22,21 +23,20 @@ import java.nio.file.Path;
 
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
+    @Shadow @Final private Screen screen;
+    private static final boolean USE_EXPERIMENTAL_GUI = Minecraft.getInstance().options.experimentalGui().get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
-        if (CAN_CHANGE_UI) {
-            WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
-
-            cir.setReturnValue((worldSelectionList).getScreen().width - 8);
+        if (USE_EXPERIMENTAL_GUI) {
+            cir.setReturnValue(screen.width - 8);
         }
     }
 
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         @Shadow @Final private LevelSummary summary;
-        private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
+        private static final boolean USE_EXPERIMENTAL_GUI = Minecraft.getInstance().options.experimentalGui().get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 
@@ -49,7 +49,7 @@ public class WorldSelectionListMixin {
 
         @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void modifyWorldIconWidth(Args args) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 args.set(6, ICON_WIDTH);
                 args.set(8, ICON_WIDTH);
             }
@@ -57,7 +57,7 @@ public class WorldSelectionListMixin {
 
         @ModifyArg(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
         private int modifyWorldIconFillWidth(int x1) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 return getContentX() + ICON_WIDTH;
             }
 
@@ -69,7 +69,7 @@ public class WorldSelectionListMixin {
          */
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, final int relX, final int relY, final int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 return isMouseWithin(mouseX, mouseY, getContentX() + ICON_WIDTH, getContentY() + size);
             }
 
@@ -78,7 +78,7 @@ public class WorldSelectionListMixin {
 
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
         private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 int MID_ICON = getContentX() + ICON_WIDTH / 4;
 
                 instance.blitSprite(RenderPipelines.GUI_TEXTURED, location, MID_ICON, getContentY(), width, height);
@@ -87,7 +87,7 @@ public class WorldSelectionListMixin {
 
         @Inject(method = "getTextX", at = @At("RETURN"), cancellable = true)
         private void extendTextWidth(CallbackInfoReturnable<Integer> cir) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 cir.setReturnValue(getContentX() + ICON_WIDTH + 3);
             }
         }
@@ -97,7 +97,7 @@ public class WorldSelectionListMixin {
          */
         @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsClickedIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final MouseButtonEvent event, final boolean doubleClick) {
-            if (CAN_CHANGE_UI) {
+            if (USE_EXPERIMENTAL_GUI) {
                 return isMouseWithin((int) event.x(), (int) event.y(), getContentX() + ICON_WIDTH, getContentY() + ICON_HEIGHT);
             }
 
