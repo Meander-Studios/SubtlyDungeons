@@ -5,7 +5,6 @@
   "mixins": [
     "client.entity.ScansorialEntityMixin",
     "common.data.OverworldMaterialRulesMixin",
-    "common.server.MinecraftServerMixin",
     "common.server.ReloadableServerResourcesMixin",
     "common.server.ServerAdvancementManagerMixin",
     "common.server.level.ServerLevelMixin",

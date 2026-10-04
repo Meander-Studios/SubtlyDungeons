@@ -1,81 +1,61 @@
 package net.meander.subtlyd.mixin.client.renderer;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.NativeImage;
-import com.mojang.logging.LogUtils;
-import net.meander.subtlyd.world.level.storage.WorldIconState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.Screenshot;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.util.Util;
-import org.spongepowered.asm.mixin.Final;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
-public class GameRendererMixin {
-    @Shadow @Final private Minecraft minecraft;
+public abstract class GameRendererMixin {
+    @Shadow protected abstract void takeAutoScreenshot(Path screenshotFile);
+    private static final int SCREENSHOT_WIDTH = 455;
+    private static final int SCREENSHOT_HEIGHT = 256;
 
-    @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
-    private void cancelVanillaScreenshot(Path screenshotFile, CallbackInfo ci) {
-        ci.cancel();
+    @ModifyVariable(method = "lambda$takeAutoScreenshot$1", at = @At("STORE"), name = "scaled")
+    private static NativeImage setScreenshotRatio(NativeImage scaled) {
+        return new NativeImage(SCREENSHOT_WIDTH, SCREENSHOT_HEIGHT, false);
     }
 
-    /**
-     * Replaces the logic to crop and/or set the ratio for  world thumbnails to 16:9.
-     */
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel()V", shift = At.Shift.AFTER))
-    private void captureScreenshot(CallbackInfo ci) {
-        if (WorldIconState.pathHolder != null) {
-            Path path = WorldIconState.pathHolder;
-            WorldIconState.pathHolder = null;
-            final GameRenderer gameRenderer = (GameRenderer) (Object) this;
+    @Redirect(method = "lambda$takeAutoScreenshot$1", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/NativeImage;resizeSubRectTo(IIIILcom/mojang/blaze3d/platform/NativeImage;)V"))
+    private static void cropScreenshot(NativeImage instance, int sourceX, int sourceY, int sizeX, int sizeY, NativeImage _to, @Local(name = "screenshot", argsOnly = true) NativeImage screenshot) {
+        int width = screenshot.getWidth();
+        int height = screenshot.getHeight();
 
-            if (minecraft.levelExtractor.countRenderedSections() > 10 && minecraft.levelRenderer.hasRenderedAllSections()) {
-                Screenshot.takeScreenshot(gameRenderer.mainRenderTarget(), sourceImage -> Util.ioPool().execute(() -> {
-                    int targetWidth = 455;
-                    int targetHeight = 256;
+        int cropX = 0;
+        int cropY = 0;
+        int cropWidth = width;
+        int cropHeight = height;
 
-                    int sourceWidth = sourceImage.getWidth();
-                    int sourceHeight = sourceImage.getHeight();
+        float targetRatio = (float) SCREENSHOT_WIDTH / SCREENSHOT_HEIGHT;
+        float sourceRatio = (float) cropWidth / cropHeight;
 
-                    int cropX = 0;
-                    int cropY = 0;
-                    int cropWidth = sourceWidth;
-                    int cropHeight = sourceHeight;
-
-                    float targetRatio = (float) targetWidth / targetHeight;
-                    float sourceRatio = (float) sourceWidth / sourceHeight;
-
-                    if (sourceRatio > targetRatio) {
-                        cropWidth = (int) (sourceHeight * targetRatio);
-                        cropX = (sourceWidth - cropWidth) / 2;
-                    } else {
-                        cropHeight = (int) (sourceWidth / targetRatio);
-                        cropY = (sourceHeight - cropHeight) / 2;
-                    }
-
-                    try (NativeImage scaledImage = new NativeImage(targetWidth, targetHeight, false)) {
-                        try {
-                            Files.deleteIfExists(path);
-                        } catch (IOException e) {
-                            LogUtils.getLogger().warn("Could not delete old world icon", e);
-                        }
-                        sourceImage.resizeSubRectTo(cropX, cropY, cropWidth, cropHeight, scaledImage);
-                        scaledImage.writeToFile(path);
-                    } catch (IOException var16) {
-                        LogUtils.getLogger().warn("Couldn't save auto screenshot", var16);
-                    } finally {
-                        sourceImage.close();
-                    }
-                }));
-            }
+        if (sourceRatio > targetRatio) {
+            cropWidth = (int) (height * targetRatio);
+            cropX = (width - cropWidth) / 2;
+        } else {
+            cropHeight = (int) (width / targetRatio);
+            cropY = (height - cropHeight) / 2;
         }
+
+        instance.resizeSubRectTo(cropX, cropY, cropWidth, cropHeight, _to);
+    }
+
+    @Redirect(method = "tryTakeScreenshotIfNeeded", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/GameRenderer;hasWorldScreenshot:Z", opcode = Opcodes.GETFIELD))
+    private boolean captureScreenshot(GameRenderer instance) {
+        return false;
+    }
+
+    @Inject(method = "lambda$tryTakeScreenshotIfNeeded$0", at = @At("TAIL"))
+    private void captureScreenshot(Path path, CallbackInfo ci) {
+        takeAutoScreenshot(path);
     }
 }

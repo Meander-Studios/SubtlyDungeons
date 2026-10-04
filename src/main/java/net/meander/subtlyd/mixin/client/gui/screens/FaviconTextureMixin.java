@@ -1,70 +1,39 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.platform.NativeImage;
-import net.meander.subtlyd.util.UtilSD;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.FaviconTexture;
-import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(FaviconTexture.class)
 public class FaviconTextureMixin {
-    @Shadow @Final private Identifier textureLocation;
-    @Shadow @Nullable private DynamicTexture texture;
-    @Shadow @Final private TextureManager textureManager;
-    @Shadow private void checkOpen() {}
-    @Shadow public void clear() {}
+    @WrapOperation(method = "upload", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/NativeImage;getWidth()I", ordinal = 0))
+    private int allowNewWidth(NativeImage instance, Operation<Integer> original) {
+        int width = original.call(instance);
 
-    /**
-     * Saves a thumbnail of size 455x256 pixels
-     * @param image The saved thumbnail
-     */
-    @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
-    private void upload(NativeImage image, CallbackInfo ci) {
-        Options options = Minecraft.getInstance().options;
-
-        if (options.experimentalGui().get()) {
-            if (image.getWidth() == 455 && image.getHeight() == 256) {
-                try {
-                    checkOpen();
-
-                    if (texture == null) {
-                        texture = new DynamicTexture(() -> "Favicon " + textureLocation, image);
-                        texture.upload();
-                        textureManager.register(textureLocation, texture);
-
-                    } else {
-                        NativeImage pixels = texture.getPixels();
-
-                        if (pixels != image) {
-                            pixels.close();
-                        }
-
-                        texture.setPixels(image);
-                        texture.upload();
-                    }
-
-                    textureManager.register(textureLocation, texture);
-                } catch (Throwable e) {
-                    image.close();
-                    clear();
-                    UtilSD.LOGGER.error(e.getMessage());
-                }
-            } else {
-                image.close();
-                UtilSD.LOGGER.error(new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight()).getMessage());
-            }
-
-            ci.cancel();
+        if (width == 455 && instance.getHeight() == 256) {
+            return 64;
         }
+
+        return width;
+    }
+
+    @WrapOperation(method = "upload", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/NativeImage;getHeight()I", ordinal = 0))
+    private int allowNewHeight(NativeImage instance, Operation<Integer> original) {
+        int height = original.call(instance);
+
+        if (height == 256 && instance.getWidth() == 455) {
+            return 64;
+        }
+
+        return height;
+    }
+
+    @ModifyArg(method = "upload", at = @At(value = "INVOKE", target = "Ljava/lang/IllegalArgumentException;<init>(Ljava/lang/String;)V"))
+    private String modifyExceptionMessage(String original) {
+        return original.replace("64x64", "64x64 or 455x256");
     }
 }

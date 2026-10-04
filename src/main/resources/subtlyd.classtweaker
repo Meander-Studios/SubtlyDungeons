@@ -12,6 +12,7 @@ accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (L
 accessible method net/minecraft/client/gui/screens/Screen setInitialFocus (Lnet/minecraft/client/gui/components/events/GuiEventListener;)V
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen onCreate ()V
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getOrCreateTempDataPackDir ()Ljava/nio/file/Path;
+accessible field net/minecraft/client/renderer/GameRenderer hasWorldScreenshot Z
 
 ## Options
 accessible class net/minecraft/client/Options$FieldAccess
