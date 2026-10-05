@@ -29,12 +29,10 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
         HolderLookup.RegistryLookup<PlacedFeature> placedFeatures = registries.lookupOrThrow(Registries.PLACED_FEATURE);
 
         birchTall(placedFeatures, entries);
-        brownMushroomNormal(placedFeatures, entries);
         patchBush(placedFeatures, entries);
         patchGrassPlain(placedFeatures, entries);
         patchGrassTaiga2(placedFeatures, entries);
         patchTallGrass(placedFeatures, entries);
-        redMushroomNormal(placedFeatures, entries);
         treesBirch(placedFeatures, entries);
         treesBirchAndOakLeafLitter(placedFeatures, entries);
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
@@ -50,14 +48,6 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
         } catch (Exception e) {
             UtilSD.LOGGER.error("Failed to override {}", featureKey.identifier(), e);
         }
-    }
-
-    private void brownMushroomNormal(HolderLookup.RegistryLookup<PlacedFeature> registry, Entries entries) {
-        replaceModifiers(registry, entries, VegetationPlacements.BROWN_MUSHROOM_NORMAL, modifier -> switch (modifier) {
-            case RarityFilter _ -> RarityFilter.onAverageOnceEvery(32);
-            case CountPlacement _ -> CountPlacement.of(96);
-            default -> modifier;
-        });
     }
 
     private void patchBush(HolderLookup.RegistryLookup<PlacedFeature> registry, Entries entries) {
@@ -86,14 +76,6 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
     private void patchTallGrass(HolderLookup.RegistryLookup<PlacedFeature> registry, Entries entries) {
         replaceModifiers(registry, entries, VegetationPlacements.PATCH_TALL_GRASS, modifier -> switch (modifier) {
             case RarityFilter _ -> RarityFilter.onAverageOnceEvery(6);
-            case CountPlacement _ -> CountPlacement.of(96);
-            default -> modifier;
-        });
-    }
-
-    private void redMushroomNormal(HolderLookup.RegistryLookup<PlacedFeature> registry, Entries entries) {
-        replaceModifiers(registry, entries, VegetationPlacements.RED_MUSHROOM_NORMAL, modifier -> switch (modifier) {
-            case RarityFilter _ -> RarityFilter.onAverageOnceEvery(64);
             case CountPlacement _ -> CountPlacement.of(96);
             default -> modifier;
         });
