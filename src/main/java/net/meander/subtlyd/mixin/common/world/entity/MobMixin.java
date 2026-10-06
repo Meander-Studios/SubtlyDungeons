@@ -6,7 +6,6 @@ import net.meander.subtlyd.world.entity.ai.goal.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -49,7 +48,7 @@ public abstract class MobMixin implements MobSD {
             Goal goal = wrappedGoal.getGoal();
 
             if (goal.getClass() == goalClass) {
-                priority = Optional.of(Mth.clamp(priority.orElse(64) - 1, 0, wrappedGoal.getPriority()));
+                priority = Optional.of(Math.clamp(priority.orElse(64) - 1, 0, wrappedGoal.getPriority()));
             }
         }
 

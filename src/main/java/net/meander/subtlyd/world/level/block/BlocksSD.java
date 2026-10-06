@@ -3,9 +3,10 @@ package net.meander.subtlyd.world.level.block;
 import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.level.block.sounds.SoundTypeSD;
+import net.meander.subtlyd.world.level.block.sounds.BlockSoundSetsSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -19,7 +20,7 @@ public class BlocksSD {
             .mapColor(MapColor.SNOW)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .strength(1.0F, 0.5F)
-            .sound(SoundTypeSD.SNOW_BRICKS)
+            .sound(BlockSoundSetsSD.SNOW_BRICKS)
     );
     public static final Block SNOW_BRICK_STAIRS = registerStair(BlockItemIdsSD.SNOW_BRICK_STAIRS, SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(BlockItemIdsSD.SNOW_BRICK_SLAB, SNOW_BRICKS);
@@ -29,7 +30,7 @@ public class BlocksSD {
             .mapColor(MapColor.METAL)
             .requiresCorrectToolForDrops()
             .strength(5.0F, 6.0F)
-            .sound(SoundType.IRON)
+            .sound(BlockSoundSets.IRON)
             .noOcclusion()
             .isValidSpawn(Blocks::never)
             .isRedstoneConductor(Blocks::never)
@@ -50,7 +51,7 @@ public class BlocksSD {
             .replaceable()
             .noCollision()
             .instabreak()
-            .sound(SoundType.WET_GRASS)
+            .sound(BlockSoundSets.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.POPPED)
     );
@@ -68,7 +69,7 @@ public class BlocksSD {
     public static final Block SOUL_JACK_O_LANTERN = Blocks.register(BlockItemIdsSD.SOUL_JACK_O_LANTERN, CarvedPumpkinBlock::new,
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
                     .strength(1.0F)
-                    .sound(SoundType.WOOD)
+                    .sound(BlockSoundSets.WOOD)
                     .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.POPPED)
@@ -77,7 +78,7 @@ public class BlocksSD {
     public static final Block PERSE_WILDFLOWERS = Blocks.register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
-            .sound(SoundType.PINK_PETALS)
+            .sound(BlockSoundSets.PINK_PETALS)
             .pushReaction(PushReaction.POPPED)
     );
     public static final Block STEW_CAULDRON = Blocks.register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));

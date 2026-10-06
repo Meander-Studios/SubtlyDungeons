@@ -43,7 +43,7 @@ public class OceanMonumentStructureMixin {
 
     @Inject(method = "regeneratePiecesAfterLoad", at = @At("RETURN"))
     private static void relocateAfterLoad(ChunkPos chunkPos, long seed, PiecesContainer savedPieces, CallbackInfoReturnable<PiecesContainer> cir) {
-        if (!savedPieces.isEmpty()) {
+        if (!savedPieces.pieces().isEmpty()) {
             PiecesContainer newContainer = cir.getReturnValue();
             StructurePiece oldTopPiece = savedPieces.pieces().getFirst();
             StructurePiece newTopPiece = newContainer.pieces().getFirst();

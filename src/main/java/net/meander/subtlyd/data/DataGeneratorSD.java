@@ -22,6 +22,7 @@ import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
+import net.meander.subtlyd.world.level.block.sounds.BlockSoundSetsSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 
@@ -80,5 +81,6 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::registration);
         registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::registration);
         registryBuilder.add(Registries.BIOME, BiomeDataSD::bootstrap);
+        registryBuilder.add(Registries.BLOCK_SOUND_SET, BlockSoundSetsSD::bootstrap);
     }
 }

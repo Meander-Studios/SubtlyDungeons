@@ -43,7 +43,7 @@ public class FogRendererMixin {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {
-                float darknessLerp = Mth.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F);
+                float darknessLerp = Math.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F);
                 float multiplier = Mth.lerp(darknessLerp, 1.0F, 0.3F);
 
                 dest.set(dest.x() * multiplier, dest.y() * multiplier, dest.z() * multiplier, dest.w());
@@ -74,7 +74,7 @@ public class FogRendererMixin {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {
-                float opacityLerp = Mth.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F);
+                float opacityLerp = Math.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F);
                 float distanceSquash = Mth.lerp(opacityLerp, 1.0F, 0.4F);
 
                 fogData.renderDistanceStart *= distanceSquash;

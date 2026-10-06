@@ -35,7 +35,7 @@ public abstract class EndSpikeFeatureMixin {
         int centerZ = spike.getCenterZ();
 
         for (int y = topY; y >= level.getMinY(); y--) {
-            float progressDown = Mth.clamp((topY - Math.max(y, 60.0F)) / (topY - 60.0F), 0.0F, 1.0F);
+            float progressDown = Math.clamp((topY - Math.max(y, 60.0F)) / (topY - 60.0F), 0.0F, 1.0F);
             float currentRadius = Mth.lerp(progressDown, 1.0F, baseRadius * 1.5F);
             int ceilRadius = Mth.ceil(currentRadius);
 

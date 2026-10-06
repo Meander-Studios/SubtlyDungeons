@@ -42,7 +42,6 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
@@ -448,7 +447,7 @@ public class WorldGeneratorSD implements DataProvider {
             BiomeModifications.create(swampFrogWeight).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
                     (_, biomeModificationContext) -> {
                         biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.FROG);
-                        biomeModificationContext.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, new UniformInt(2, 5)), 14);
+                        biomeModificationContext.getMobSpawnSettings().addSpawn(EntityTypes.FROG, 14, new UniformInt(2, 5));
                     });
             BiomeModifications.create(mangroveSwampAtmosphere).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
                     (_, biomeModificationContext) -> biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR));

@@ -29,7 +29,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -365,7 +364,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (wasAttackBlocked) {
             LivingEntity entity = (LivingEntity) (Object) this;
             double shieldStrength = entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
-            double reduction = Mth.clamp(shieldStrength * 0.1, 0.0, 1.0);
+            double reduction = Math.clamp(shieldStrength * 0.1, 0.0, 1.0);
 
             power *= 1.0 - reduction;
         }

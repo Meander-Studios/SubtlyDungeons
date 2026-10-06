@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(OverworldMaterialRules.class)
 public class OverworldMaterialRulesMixin {
     @Inject(method = "registerSurface", at = @At("RETURN"), cancellable = true)
-    private static void registerSurface(BootstrapContext<MaterialRule> context, MaterialRule sulfurCaveBands, CallbackInfoReturnable<MaterialRule> cir) {
+    private static void registerSurface(BootstrapContext<MaterialRule> context, MaterialRule sulfurCaveBands, MaterialRule iceCaveBands, CallbackInfoReturnable<MaterialRule> cir) {
         HolderGetter<MaterialCondition> conditions = context.lookup(Registries.MATERIAL_CONDITION);
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 

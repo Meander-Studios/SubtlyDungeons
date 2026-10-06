@@ -290,7 +290,7 @@ public class Tent extends Entity {
             Level level = level();
 
             if (level.isClientSide()) {
-                level.playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL_BREAK, getSoundSource(), 0.3F, 1.0F, false);
+                level.playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL_BREAK.value(), getSoundSource(), 0.3F, 1.0F, false);
 
                 lastHit = level.getGameTime();
             }

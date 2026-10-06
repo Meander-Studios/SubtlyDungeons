@@ -14,11 +14,11 @@ public class SoundEventsSD {
     public static final SoundEvent STEW_SERVED = register("block.cauldron.serve");
     public static final SoundEvent STEW_STEWS = register("block.cauldron.stewing");
     public static final SoundEvent ICE_FREEZE = register("block.frosted_ice.freeze");
-    public static final SoundEvent SNOW_BRICK_BREAK = register("block.snow_bricks.break");
-    public static final SoundEvent SNOW_BRICK_FALL = register("block.snow_bricks.fall");
-    public static final SoundEvent SNOW_BRICK_HIT = register("block.snow_bricks.hit");
-    public static final SoundEvent SNOW_BRICK_PLACE = register("block.snow_bricks.place");
-    public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
+    public static final Holder<SoundEvent> SNOW_BRICK_BREAK = registerForHolder("block.snow_bricks.break");
+    public static final Holder<SoundEvent> SNOW_BRICK_FALL = registerForHolder("block.snow_bricks.fall");
+    public static final Holder<SoundEvent> SNOW_BRICK_HIT = registerForHolder("block.snow_bricks.hit");
+    public static final Holder<SoundEvent> SNOW_BRICK_PLACE = registerForHolder("block.snow_bricks.place");
+    public static final Holder<SoundEvent> SNOW_BRICK_STEP = registerForHolder("block.snow_bricks.step");
     public static final SoundEvent FLAME_ARROW_HIT = register("entity.arrow.hit_flame");
     public static final SoundEvent FLAME_ARROW_SHOOT = register("entity.arrow.shoot_flame");
     public static final SoundEvent AREA_EFFECT_CLOUD_GAS = register("entity.area_effect_cloud.gas");

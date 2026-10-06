@@ -52,7 +52,7 @@ public abstract class ClientBundleTooltipMixin {
         if (renderingQuiver) {
             Fraction normalizedWeight = weight.multiplyBy(Fraction.getFraction(1, 4));
 
-            cir.setReturnValue(Mth.clamp(Mth.mulAndTruncate(normalizedWeight, 94), 0, 94));
+            cir.setReturnValue(Math.clamp(Mth.mulAndTruncate(normalizedWeight, 94), 0, 94));
         }
     }
 
