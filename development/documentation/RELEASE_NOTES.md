@@ -1,10 +1,10 @@
 # [6.0] - UNRELEASED
 ## New Features
 - Added new Multiplayer UI
-  - This is still a WIP
 
 ## Changes
 - Reverted change to projectile y-axis momentum
+- Changed Strays to shoot and drop Freezing Tipped Arrows
 
 ## Technical Changes
 ### Bug Fixes

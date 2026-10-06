@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.world.entity.monster;
+package net.meander.subtlyd.mixin.common.world.entity.monster.raid;
 
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;

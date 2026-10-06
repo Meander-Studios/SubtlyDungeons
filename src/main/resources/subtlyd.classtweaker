@@ -53,6 +53,7 @@ mutable field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/
 mutable field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
 accessible field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
 accessible method net/minecraft/world/level/storage/loot/BuiltInLootTables register (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/data/loot/EntityLootSubProvider enchantments Lnet/minecraft/core/HolderGetter;
 
 ## Entities
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;

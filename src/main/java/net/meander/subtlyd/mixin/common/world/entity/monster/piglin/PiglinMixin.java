@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.world.entity.monster;
+package net.meander.subtlyd.mixin.common.world.entity.monster.piglin;
 
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.util.RandomSource;

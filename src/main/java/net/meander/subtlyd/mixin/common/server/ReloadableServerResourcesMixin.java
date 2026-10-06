@@ -26,7 +26,15 @@ import java.util.List;
 @Mixin(ReloadableServerResources.class)
 public class ReloadableServerResourcesMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onResourceConstruct(ReloadableServerRegistries.LoadResult loadingContext, FeatureFlagSet enabledFeatures, Commands.CommandSelection commandSelection, List<Registry.PendingTags<?>> postponedTags, PermissionSet functionCompilationPermissions, List<DataComponentInitializers.PendingComponents<?>> newComponents, CallbackInfo ci  /* other params */) {
+    private void registerLoot(
+            ReloadableServerRegistries.LoadResult loadingContext,
+            FeatureFlagSet enabledFeatures,
+            Commands.CommandSelection commandSelection,
+            List<Registry.PendingTags<?>> postponedTags,
+            PermissionSet functionCompilationPermissions,
+            List<DataComponentInitializers.PendingComponents<?>> newComponents,
+            CallbackInfo ci
+    ) {
         LayeredRegistryAccess<?> layers = loadingContext.layers();
         WritableRegistry<LootTable> lootRegistry = (WritableRegistry<LootTable>) layers.compositeAccess().lookupOrThrow(Registries.LOOT_TABLE);
         HolderLookup.Provider lookupProvider = loadingContext.lookupWithUpdatedTags();
