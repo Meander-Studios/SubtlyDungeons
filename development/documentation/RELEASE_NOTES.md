@@ -1,6 +1,6 @@
 # [6.0] - UNRELEASED
 ## New Features
-- Added new Multiplayer UI
+- Added new experimental Multiplayer UI
 
 ## Changes
 - Reverted change to projectile y-axis momentum
