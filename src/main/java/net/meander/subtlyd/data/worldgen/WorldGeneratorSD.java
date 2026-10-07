@@ -496,17 +496,20 @@ public class WorldGeneratorSD implements DataProvider {
                         ((_, biomeModificationContext) -> {
                             biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 16.0F);
                             biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 64.0F);
-                        }))
+                        })
+                    )
             .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_VERY_FOGGY),
                     ((_, biomeModificationContext) -> {
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 8.0F);
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 32.0F);
-                    }))
+                    })
+            )
             .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_SLIGHTLY_FOGGY),
                     ((_, biomeModificationContext) -> {
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 64.0F);
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 256.0F);
-                    }));
+                    })
+            );
         }
     }
 }
