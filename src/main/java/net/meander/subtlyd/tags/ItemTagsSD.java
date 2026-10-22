@@ -27,8 +27,8 @@ public class ItemTagsSD {
     public static final TagKey<Item> QUIVERS = bind("quivers");
     public static final TagKey<Item> SHIELDS = bind("shields");
 
-    private static TagKey<Item> bind(String string) {
-        return TagKey.create(Registries.ITEM, UtilSD.identifier(string));
+    private static TagKey<Item> bind(String name) {
+        return TagKey.create(Registries.ITEM, UtilSD.identifier(name));
     }
 
     /**

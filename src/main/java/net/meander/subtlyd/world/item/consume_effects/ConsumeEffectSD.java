@@ -15,6 +15,9 @@ public class ConsumeEffectSD {
         public static final ConsumeEffect.Type<RemoveNegativeStatusEffectsConsumeEffect> REMOVE_NEGATIVE_EFFECTS = register(
                 "remove_effects", RemoveNegativeStatusEffectsConsumeEffect.CODEC, RemoveNegativeStatusEffectsConsumeEffect.STREAM_CODEC
         );
+        public static final ConsumeEffect.Type<RemoveFreezingConsumeEffect> REDUCE_FREEZING = register(
+                "reduce_freezing", RemoveFreezingConsumeEffect.CODEC, RemoveFreezingConsumeEffect.STREAM_CODEC
+        );
 
         private static <T extends ConsumeEffect> ConsumeEffect.Type<T> register(final String name, final MapCodec<T> codec, final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {
             return Registry.register(BuiltInRegistries.CONSUME_EFFECT_TYPE, name, new ConsumeEffect.Type<>(codec, streamCodec));

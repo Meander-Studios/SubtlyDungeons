@@ -56,6 +56,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(PotionTagsProviderSD::new);
         pack.addProvider(EnchantmentTagsProviderSD::new);
         pack.addProvider(BlockTagsProviderSD::new);
+        pack.addProvider(FluidTagsProviderSD::new);
         pack.addProvider(EntityTypeTagsProviderSD::new);
         pack.addProvider(DamageTypeTagsProviderSD::new);
     }

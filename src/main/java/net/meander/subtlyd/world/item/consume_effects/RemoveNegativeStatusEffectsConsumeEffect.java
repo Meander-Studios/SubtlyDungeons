@@ -9,9 +9,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
 
+/**
+ * @see ApplyStatusEffectsConsumeEffect
+ */
 public record RemoveNegativeStatusEffectsConsumeEffect() implements ConsumeEffect {
     public static final RemoveNegativeStatusEffectsConsumeEffect INSTANCE = new RemoveNegativeStatusEffectsConsumeEffect();
     public static final MapCodec<RemoveNegativeStatusEffectsConsumeEffect> CODEC = MapCodec.unit(INSTANCE);

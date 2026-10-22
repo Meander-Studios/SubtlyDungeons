@@ -1,9 +1,9 @@
 package net.meander.subtlyd.world.level.block;
 
+import net.meander.subtlyd.tags.FluidTagsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jspecify.annotations.Nullable;
@@ -46,7 +45,7 @@ public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, B
             FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
             FluidState upperFluidState = context.getLevel().getFluidState(context.getClickedPos().above());
 
-            if (fluidState.is(FluidTags.WATER) && upperFluidState.is(Fluids.EMPTY) && fluidState.getAmount() == 8) {
+            if (fluidState.is(FluidTagsSD.SUPPORTS_REEDS) && upperFluidState.is(Fluids.EMPTY) && fluidState.getAmount() == 8) {
                 return blockState;
             }
         }
@@ -63,7 +62,7 @@ public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, B
         } else {
             FluidState fluidState = level.getFluidState(pos);
 
-            return super.canSurvive(state, level, pos) && fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8;
+            return super.canSurvive(state, level, pos) && fluidState.is(FluidTagsSD.SUPPORTS_REEDS) && fluidState.getAmount() == 8;
         }
     }
 
@@ -73,11 +72,11 @@ public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, B
             return Fluids.EMPTY.defaultFluidState();
         }
 
-        return Fluids.WATER.getSource(false);
+        return Fluids.WATER.getSource();
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, FluidState fluidState) {
         return false;
     }
 

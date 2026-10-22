@@ -14,5 +14,6 @@ public class FoodsSD {
     public static final FoodProperties BROWN_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
     public static final FoodProperties RED_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
     public static final FoodProperties SHELF_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
+    public static final FoodProperties CHOCOLATE_BOTTLE = new FoodProperties.Builder().nutrition(6).saturationModifier(0.1F).alwaysEdible().build();
     public static final FoodProperties LIGHT_STEW = Foods.stew(3).build();
 }

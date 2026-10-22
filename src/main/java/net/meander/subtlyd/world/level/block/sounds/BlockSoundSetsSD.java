@@ -14,7 +14,7 @@ public class BlockSoundSetsSD {
     public static final ResourceKey<BlockSoundSet> SNOW_BRICKS = key("sound_bricks");
 
     public static void bootstrap(final BootstrapContext<BlockSoundSet> context) {
-        context.register(SNOW_BRICKS, new BlockSoundSet(SoundEventsSD.SNOW_BRICK_BREAK, SoundEventsSD.SNOW_BRICK_STEP, SoundEventsSD.SNOW_BRICK_PLACE, SoundEventsSD.SNOW_BRICK_HIT, SoundEventsSD.SNOW_BRICK_FALL));
+        context.register(SNOW_BRICKS, new BlockSoundSet(SoundEventsSD.SNOW_BRICK));
     }
 
     private static ResourceKey<BlockSoundSet> key(final String id) {

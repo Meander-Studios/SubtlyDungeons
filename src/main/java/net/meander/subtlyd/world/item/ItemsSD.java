@@ -223,7 +223,12 @@ public class ItemsSD {
     );
     public static final Item TERRACOTTA_STAIRS = Items.registerBlock(BlockItemIdsSD.TERRACOTTA_STAIRS, BlocksSD.TERRACOTTA_STAIRS);
     public static final Item TERRACOTTA_SLAB = Items.registerBlock(BlockItemIdsSD.TERRACOTTA_SLAB, BlocksSD.TERRACOTTA_SLAB);
-
+    public static final Item CHOCOLATE_BOTTLE = Items.registerItem(ItemIdsSD.CHOCOLATE_BOTTLE, Item::new, new Item.Properties()
+            .craftRemainder(Items.GLASS_BOTTLE)
+            .food(FoodsSD.CHOCOLATE_BOTTLE, ConsumablesSD.CHOCOLATE_BOTTLE)
+            .usingConvertsTo(Items.GLASS_BOTTLE)
+            .stacksTo(16)
+    );
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering items...");

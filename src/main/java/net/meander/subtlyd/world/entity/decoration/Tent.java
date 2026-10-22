@@ -290,7 +290,9 @@ public class Tent extends Entity {
             Level level = level();
 
             if (level.isClientSide()) {
-                level.playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL_BREAK.value(), getSoundSource(), 0.3F, 1.0F, false);
+                if (SoundEvents.WOOL.breakSound().isPresent()) {
+                    level.playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL.breakSound().get().value(), getSoundSource(), 0.3F, 1.0F, false);
+                }
 
                 lastHit = level.getGameTime();
             }
@@ -359,7 +361,7 @@ public class Tent extends Entity {
     }
 
     private void playBrokenSound() {
-        level().playSound(null, getX(), getY(), getZ(), SoundEvents.WOOL_BREAK, getSoundSource(), 1.0F, 1.0F);
+        SoundEvents.WOOL.breakSound().ifPresent(breakSound -> level().playSound(null, getX(), getY(), getZ(), breakSound.value(), getSoundSource(), 1.0F, 1.0F));
     }
 
     @Override

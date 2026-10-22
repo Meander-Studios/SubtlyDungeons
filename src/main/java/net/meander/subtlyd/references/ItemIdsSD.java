@@ -26,6 +26,7 @@ public class ItemIdsSD {
     public static final ResourceKey<Item> NETHERITE_DAGGER = create("netherite_dagger");
     public static final ResourceKey<Item> QUIVER = create("quiver");
     public static final ResourceKey<Item> HEAVY_SHIELD = create("heavy_shield");
+    public static final ResourceKey<Item> CHOCOLATE_BOTTLE = create("chocolate_bottle");
     public static final ColorCollection<ResourceKey<Item>> TENT = createSimpleColored("tent");
     public static final ColorCollection<ResourceKey<Item>> DYED_QUIVER = createSimpleColored("dyed_quiver");
 

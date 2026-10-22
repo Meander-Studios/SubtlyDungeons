@@ -53,6 +53,7 @@ public interface SimpleSnowloggedBlock {
 
                 if (layers < MAX_LAYERS) {
                     if (level instanceof ServerLevel) {
+                        BlockPos soundPos = pos;
                         BlockState snowloggedState = state.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, layers == 0 ? 1 : layers + 1);
 
                         if (snowloggedState.hasProperty(BlockStateProperties.SNOWY)) {
@@ -60,7 +61,7 @@ public interface SimpleSnowloggedBlock {
                         }
 
                         level.setBlock(pos, snowloggedState, 3);
-                        level.playSound(null, pos, SoundEvents.SNOW_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        SoundEvents.SNOW.placeSound().ifPresent(placeSound -> level.playSound(null, soundPos, placeSound, SoundSource.BLOCKS, 1.0F, 1.0F));
 
                         if (!player.hasInfiniteMaterials()) {
                             heldItem.shrink(1);

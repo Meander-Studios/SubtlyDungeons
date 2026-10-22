@@ -177,6 +177,14 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
                         .save(output);
 
+                shapeless(category, ItemsSD.CHOCOLATE_BOTTLE)
+                        .group("chocolate_bottle")
+                        .requires(Items.COCOA_BEANS)
+                        .requires(Items.SUGAR)
+                        .requires(Items.POTION)
+                        .unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS))
+                        .save(output);
+
                 cookRecipesSD(ItemsSD.CALAMARI, 0.35F, ItemsSD.COOKED_CALAMARI);
             }
 

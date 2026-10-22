@@ -52,7 +52,7 @@ public class TentItem extends Item {
                     }
 
                     serverLevel.addFreshEntityWithPassengers(tent);
-                    level.playSound(null, tent.getX(), tent.getY(), tent.getZ(), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
+                    SoundEvents.WOOL.placeSound().ifPresent(placeSound -> level.playSound(null, tent.getX(), tent.getY(), tent.getZ(), placeSound, SoundSource.BLOCKS, 0.75F, 0.8F));
                     tent.gameEvent(GameEvent.ENTITY_PLACE, player);
                 }
 

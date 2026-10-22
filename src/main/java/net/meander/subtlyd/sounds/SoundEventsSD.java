@@ -1,9 +1,13 @@
 package net.meander.subtlyd.sounds;
 
 import net.meander.subtlyd.util.UtilSD;
+import net.meander.subtlyd.world.level.block.sounds.BlockSoundSetsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.sounds.BlockSoundCollection;
+
+import java.util.Optional;
 
 /**
  * @see net.minecraft.sounds.SoundEvents
@@ -14,11 +18,6 @@ public class SoundEventsSD {
     public static final SoundEvent STEW_SERVED = register("block.cauldron.serve");
     public static final SoundEvent STEW_STEWS = register("block.cauldron.stewing");
     public static final SoundEvent ICE_FREEZE = register("block.frosted_ice.freeze");
-    public static final Holder<SoundEvent> SNOW_BRICK_BREAK = registerForHolder("block.snow_bricks.break");
-    public static final Holder<SoundEvent> SNOW_BRICK_FALL = registerForHolder("block.snow_bricks.fall");
-    public static final Holder<SoundEvent> SNOW_BRICK_HIT = registerForHolder("block.snow_bricks.hit");
-    public static final Holder<SoundEvent> SNOW_BRICK_PLACE = registerForHolder("block.snow_bricks.place");
-    public static final Holder<SoundEvent> SNOW_BRICK_STEP = registerForHolder("block.snow_bricks.step");
     public static final SoundEvent FLAME_ARROW_HIT = register("entity.arrow.hit_flame");
     public static final SoundEvent FLAME_ARROW_SHOOT = register("entity.arrow.shoot_flame");
     public static final SoundEvent AREA_EFFECT_CLOUD_GAS = register("entity.area_effect_cloud.gas");
@@ -40,6 +39,7 @@ public class SoundEventsSD {
     public static final Holder.Reference<SoundEvent> HEAVY_SHIELD_BLOCK = registerForHolder("item.heavy_shield.block");
     public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
     public static final Holder.Reference<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
+    public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SNOW_BRICK = SoundEvents.registerForBlockSoundSet(BlockSoundSetsSD.SNOW_BRICKS);
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering sound events...");}

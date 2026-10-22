@@ -13,7 +13,7 @@ import net.minecraft.tags.ItemTags;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @see net.minecraft.data.tags.VanillaItemTagsProvider
+ * @see net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider.FluidTagsProvider
  */
 public class ItemTagsProviderSD extends FabricTagsProvider.ItemTagsProvider {
     public ItemTagsProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

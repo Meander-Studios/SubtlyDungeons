@@ -22,23 +22,27 @@ import java.util.Optional;
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
     @ModifyVariable(method = "<init>", at = @At("HEAD"), name = "ambientLeavesBlockSoundPlayer", argsOnly = true)
-    private static AmbientLeavesBlockSoundPlayer modifyLeavesBlockSound(AmbientLeavesBlockSoundPlayer ambientLeavesBlockSoundPlayer) {
-        if (ambientLeavesBlockSoundPlayer == AmbientLeavesBlockSoundPlayer.noAmbientSound()) {
-            ambientLeavesBlockSoundPlayer = AmbientLeavesBlockSoundPlayer.of(SoundEventsSD.LEAVES_AMBIENT, BlockTags.LOGS);
+    private static Optional<AmbientLeavesBlockSoundPlayer> modifyLeavesBlockSound(Optional<AmbientLeavesBlockSoundPlayer> ambientLeavesBlockSoundPlayer) {
+        if (ambientLeavesBlockSoundPlayer.isEmpty()) {
+            ambientLeavesBlockSoundPlayer = Optional.of(AmbientLeavesBlockSoundPlayer.of(SoundEventsSD.LEAVES_AMBIENT, BlockTags.LOGS));
         }
 
         return ambientLeavesBlockSoundPlayer;
     }
 
-    @Redirect(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/sounds/AmbientLeavesBlockSoundPlayer;playAmbientLeavesSounds(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/util/RandomSource;)V"))
+    @Redirect(
+            method = "lambda$animateTick$0",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/sounds/AmbientLeavesBlockSoundPlayer;playAmbientLeavesSounds(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/util/RandomSource;)V"
+            )
+    )
     private void cancelSounds(AmbientLeavesBlockSoundPlayer instance, Level level, BlockPos pos, Block block, RandomSource random) {
-        Optional<Holder<SoundEvent>> soundEvent = instance.ambientSound();
+        Optional<Holder<SoundEvent>> soundEvent = Optional.of(instance.ambientSound());
 
-        if (soundEvent.isPresent()) {
-            if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
-                if (soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) && level.getClimateAsTemperatureVariant(pos) != TemperatureVariants.COLD) {
-                    instance.playAmbientLeavesSounds(level, pos, block, random);
-                }
+        if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
+            if (soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) && level.getClimateAsTemperatureVariant(pos) != TemperatureVariants.COLD) {
+                instance.playAmbientLeavesSounds(level, pos, block, random);
             }
         }
     }

@@ -335,6 +335,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.DYED_QUIVER.red(), "Red Quiver");
         translationBuilder.add(ItemsSD.DYED_QUIVER.white(), "White Quiver");
         translationBuilder.add(ItemsSD.DYED_QUIVER.yellow(), "Yellow Quiver");
+        translationBuilder.add(ItemsSD.CHOCOLATE_BOTTLE, "Chocolate Bottle");
     }
 
     private void sounds(TranslationBuilder translationBuilder) {

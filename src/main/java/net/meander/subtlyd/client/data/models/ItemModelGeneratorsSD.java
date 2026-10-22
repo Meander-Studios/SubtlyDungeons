@@ -64,5 +64,6 @@ public class ItemModelGeneratorsSD {
         ItemsSD.DYED_QUIVER.forEach(item -> itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM));
         generatePotionArchetypes();
         generateShield(ItemsSD.HEAVY_SHIELD);
+        itemModelGenerators.generateFlatItem(ItemsSD.CHOCOLATE_BOTTLE, ModelTemplates.FLAT_ITEM);
     }
 }

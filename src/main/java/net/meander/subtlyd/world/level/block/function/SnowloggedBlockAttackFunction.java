@@ -35,7 +35,7 @@ public class SnowloggedBlockAttackFunction implements AttackBlockCallback {
                     }
 
                     level.setBlock(blockPos, blockState.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, 0), 3);
-                    level.playSound(null, blockPos, SoundEvents.SNOW_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    SoundEvents.SNOW.breakSound().ifPresent(breakSound -> level.playSound(null, blockPos, breakSound, SoundSource.BLOCKS, 1.0F, 1.0F));
                 }
 
                 return InteractionResult.SUCCESS;

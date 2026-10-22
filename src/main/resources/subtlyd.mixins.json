@@ -111,6 +111,7 @@
     "client.renderer.debug.DebugScreenEntriesMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.EntityRendererMixin",
+    "client.renderer.entity.EntityRenderersMixin",
     "client.renderer.entity.GuardianRendererMixin",
     "client.renderer.entity.HuskRendererMixin",
     "client.renderer.entity.LivingEntityRendererMixin",

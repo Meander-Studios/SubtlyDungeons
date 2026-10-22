@@ -51,7 +51,8 @@ public class ServerAdvancementManagerMixin {
             Items.BROWN_MUSHROOM,
             Items.RED_MUSHROOM,
             Items.SHELF_MUSHROOM,
-            ItemsSD.LIGHT_STEW
+            ItemsSD.LIGHT_STEW,
+            ItemsSD.CHOCOLATE_BOTTLE
     );
     private static final List<ResourceKey<Biome>> BIOMES = List.of(
             BiomesSD.GRAVEL_BEACH,

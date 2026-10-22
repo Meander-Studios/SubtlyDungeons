@@ -167,6 +167,7 @@ public class CreativeModeTabsSD {
                     CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             entries.insertBefore(POTION, COVEN_ELIXIR);
             entries.insertAfter(BEETROOT_SOUP, LIGHT_STEW);
+            entries.insertBefore(HONEY_BOTTLE, CHOCOLATE_BOTTLE);
         });
     }
 
