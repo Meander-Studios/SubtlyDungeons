@@ -97,12 +97,15 @@ public abstract class AbstractArrowMixin {
         final BlockPos arrowFwd = arrowPos.relative(hitResult.getDirection());
 
         BlockPos firePos = switch (findFlammableBlock(hitResult)) {
+            case 1 -> arrowPos;
             case 2 -> arrowPos.above();
             case 3 -> arrowFwd.above();
-            default -> arrowPos;
+            default -> null;
         };
 
-        level.setBlock(firePos, BaseFireBlock.getState(level, firePos), 0);
+        if (firePos != null) {
+            level.setBlock(firePos, BaseFireBlock.getState(level, firePos), 0);
+        }
     }
 
     /**
@@ -122,7 +125,14 @@ public abstract class AbstractArrowMixin {
         BlockState forwardState = level.getBlockState(onPos.relative(targetFace));
         BlockState adjacentState = level.getBlockState(onPos.relative(targetFace).above());
 
-        if (onState.canBeReplaced() && (onState.is(BlockTagsSD.ARROW_FLAMMABLE) || belowState.is(BlockTagsSD.ARROW_FLAMMABLE) || forwardState.is(BlockTagsSD.ARROW_FLAMMABLE) || aboveState.is(BlockTagsSD.ARROW_FLAMMABLE))) {
+        if (onState.canBeReplaced() &&
+                (
+                        onState.is(BlockTagsSD.ARROW_FLAMMABLE) ||
+                        belowState.is(BlockTagsSD.ARROW_FLAMMABLE) ||
+                        forwardState.is(BlockTagsSD.ARROW_FLAMMABLE) ||
+                        aboveState.is(BlockTagsSD.ARROW_FLAMMABLE)
+                )
+        ) {
             return 1;
         }
 
