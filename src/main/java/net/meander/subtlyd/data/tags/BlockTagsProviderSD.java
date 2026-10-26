@@ -117,7 +117,6 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.SNOW.block())
                 .add(BlockItemIds.SNOW_BLOCK.block())
                 .add(BlockItemIds.POWDER_SNOW.block())
-                .add(BlockItemIds.ICE.block())
                 .add(BlockItemIds.BLUE_ICE.block())
                 .add(BlockItemIds.PACKED_ICE.block())
                 .add(BlockIds.FROSTED_ICE)

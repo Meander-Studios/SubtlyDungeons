@@ -5,6 +5,7 @@
 ## Changes
 - Reverted change to projectile y-axis momentum
 - Changed Strays to shoot and drop Freezing Tipped Arrows
+- Changed Ice to no longer cause cold wind noises
 
 ### Splash Text
 - Added "Save the world — go outside!"
