@@ -26,13 +26,10 @@ public class OverworldBiomesSD {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<WorldCarver> carvers = context.lookup(Registries.CARVER);
 
-        BiomeGenerationSettings.Builder genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, carvers);
         MobSpawnSettings.Builder mobs = new MobSpawnSettings.Builder();
 
         BiomeDefaultFeatures.commonSpawns(mobs);
-        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(
-                placedFeatures, carvers
-        );
+        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(placedFeatures, carvers);
         OverworldBiomes.globalOverworldGeneration(generation);
         BiomeDefaultFeatures.addDefaultOres(generation);
         BiomeDefaultFeatures.addDefaultSoftDisks(generation);
@@ -47,7 +44,7 @@ public class OverworldBiomesSD {
                 .downfall(0.4F)
                 .specialEffects(new BiomeSpecialEffects.Builder().waterColor(0x3f76e4).build())
                 .mobSpawnSettings(mobs.build())
-                .generationSettings(genBuilder.build())
+                .generationSettings(generation.build())
                 .build();
     }
     public static Biome warmRiver(BootstrapContext<Biome> context) {

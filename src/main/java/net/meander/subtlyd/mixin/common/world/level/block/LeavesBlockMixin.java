@@ -3,6 +3,7 @@ package net.meander.subtlyd.mixin.common.world.level.block;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -39,9 +40,10 @@ public class LeavesBlockMixin {
     )
     private void cancelSounds(AmbientLeavesBlockSoundPlayer instance, Level level, BlockPos pos, Block block, RandomSource random) {
         Optional<Holder<SoundEvent>> soundEvent = Optional.of(instance.ambientSound());
+        Optional<ResourceKey<SoundEvent>> leavesSound = SoundEventsSD.LEAVES_AMBIENT.unwrapKey();
 
         if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
-            if (soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) && level.getClimateAsTemperatureVariant(pos) != TemperatureVariants.COLD) {
+            if (leavesSound.isPresent() && soundEvent.get().is(leavesSound.get()) && level.getClimateAsTemperatureVariant(pos) != TemperatureVariants.COLD) {
                 instance.playAmbientLeavesSounds(level, pos, block, random);
             }
         }

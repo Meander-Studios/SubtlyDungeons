@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
@@ -144,7 +144,7 @@ public abstract class ThumbnailButton extends AbstractButton {
             super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
         }
 
-        protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        protected void extractContents(GuiGraphicsExtractor graphics) {
             boolean wasHovered = isHovered;
             int textColor = active ? 0xFFFFFFFF : 0xA0A0A0A0;
             Identifier renderedImage = getTexture();

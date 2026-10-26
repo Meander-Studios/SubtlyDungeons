@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
@@ -68,9 +68,9 @@ public class WorldSelectionListMixin {
          * Replaces the isMouseOver with isMouseWithin
          */
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
-        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, final int relX, final int relY, final int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
+        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, final int relX, final int relY, final int size, final GuiGraphicsExtractor graphics) {
             if (USE_EXPERIMENTAL_GUI) {
-                return isMouseWithin(mouseX, mouseY, getContentX() + ICON_WIDTH, getContentY() + size);
+                return isMouseWithin(graphics.mouseX(), graphics.mouseY(), getContentX() + ICON_WIDTH, getContentY() + size);
             }
 
             return instance.mouseOverIcon(relX, relY, size);

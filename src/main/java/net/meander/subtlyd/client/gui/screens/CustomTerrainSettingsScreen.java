@@ -16,7 +16,7 @@ import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -235,7 +235,7 @@ public class CustomTerrainSettingsScreen extends Screen {
             }
 
             @Override
-            public void extractContent(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
+            public void extractContent(final GuiGraphicsExtractor graphics, final boolean hovered) {
                 int centerX = CustomTerrainSettingsScreen.this.width / 2;
 
                 if (leftWidget != null) {
@@ -247,13 +247,13 @@ public class CustomTerrainSettingsScreen extends Screen {
                         leftWidget.setX(centerX - 155);
                     }
 
-                    leftWidget.extractRenderState(graphics, mouseX, mouseY, a);
+                    leftWidget.extractRenderState(graphics);
                 }
 
                 if (rightWidget != null) {
                     rightWidget.setY(getContentY());
                     rightWidget.setX(centerX + 5);
-                    rightWidget.extractRenderState(graphics, mouseX, mouseY, a);
+                    rightWidget.extractRenderState(graphics);
                 }
             }
 

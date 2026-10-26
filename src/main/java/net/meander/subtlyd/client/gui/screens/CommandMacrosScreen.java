@@ -119,7 +119,7 @@ public class CommandMacrosScreen extends Screen {
         }
 
         @Override
-        public void extractContent(final GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float a) {
+        public void extractContent(final GuiGraphicsExtractor graphics, boolean hovered) {
             int y = getContentY();
             int centerX = CommandMacrosScreen.this.width / 2;
             int labelX = centerX - 190;
@@ -132,7 +132,7 @@ public class CommandMacrosScreen extends Screen {
 
             editBox.setX(boxX);
             editBox.setY(boxY);
-            editBox.extractRenderState(graphics, mouseX, mouseY, a);
+            editBox.extractRenderState(graphics);
         }
 
         @Override

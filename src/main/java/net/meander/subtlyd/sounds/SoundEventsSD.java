@@ -36,9 +36,9 @@ public class SoundEventsSD {
     public static final SoundEvent TRIDENT_CHARGING = register("item.trident.charging");
     public static final SoundEvent TRIDENT_CHARGED = register("item.trident.charged");
     public static final SoundEvent GRASS_AMBIENT = register("block.short_grass.ambient");
-    public static final Holder.Reference<SoundEvent> HEAVY_SHIELD_BLOCK = registerForHolder("item.heavy_shield.block");
-    public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
-    public static final Holder.Reference<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
+    public static final Holder<SoundEvent> HEAVY_SHIELD_BLOCK = registerForHolder("item.heavy_shield.block");
+    public static final Holder<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
+    public static final Holder<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
     public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SNOW_BRICK = SoundEvents.registerForBlockSoundSet(BlockSoundSetsSD.SNOW_BRICKS);
 
     public static void registration() {
@@ -48,7 +48,7 @@ public class SoundEventsSD {
         return SoundEvents.register(UtilSD.identifier(string));
     }
 
-    private static Holder.Reference<SoundEvent> registerForHolder(final String id) {
+    private static Holder<SoundEvent> registerForHolder(final String id) {
         return SoundEvents.registerForHolder(UtilSD.identifier(id));
     }
 }
