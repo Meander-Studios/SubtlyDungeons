@@ -6,6 +6,10 @@
 - Reverted change to projectile y-axis momentum
 - Changed Strays to shoot and drop Freezing Tipped Arrows
 
+### Splash Text
+- Added "Save the world — go outside!"
+- Added "Also try Minecraft Dungeons 2!"
+
 ## Technical Changes
 ### Bug Fixes
 - Fixed bug causing all skins to appear slim on the Title Screen
