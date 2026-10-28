@@ -2,12 +2,15 @@ package net.meander.subtlyd.data.recipies;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -22,6 +25,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -154,6 +159,10 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
             private void food() {
                 RecipeCategory category = RecipeCategory.FOOD;
+                Ingredient waterBottle = DefaultCustomIngredients.components(
+                        Ingredient.of(Items.POTION),
+                        DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER)).build()
+                );
 
                 shapeless(category, ItemsSD.APPLE_PIE)
                         .group("apple_pie")
@@ -161,8 +170,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .requires(Items.SUGAR)
                         .requires(ItemTags.EGGS)
                         .unlockedBy(getHasName(Items.APPLE), has(Items.APPLE))
-                        .unlockedBy(getHasName(Items.GOLDEN_APPLE), has(Items.GOLDEN_APPLE))
-                        .unlockedBy(getHasName(Items.ENCHANTED_GOLDEN_APPLE), has(Items.ENCHANTED_GOLDEN_APPLE))
                         .save(output);
 
                 shapeless(category, ItemsSD.POTTAGE)
@@ -173,7 +180,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.CARROT), has(Items.CARROT))
                         .unlockedBy(getHasName(Items.WHEAT), has(Items.WHEAT))
                         .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
-                        .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
+                        .unlockedBy(getHasName(Items.RED_MUSHROOM), has(Items.RED_MUSHROOM))
+                        .unlockedBy(getHasName(Items.SHELF_MUSHROOM), has(Items.SHELF_MUSHROOM))
                         .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
                         .save(output);
 
@@ -181,7 +189,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .group("chocolate_bottle")
                         .requires(Items.COCOA_BEANS)
                         .requires(Items.SUGAR)
-                        .requires(Items.POTION)
+                        .requires(waterBottle)
                         .unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS))
                         .save(output);
 

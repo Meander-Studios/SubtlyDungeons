@@ -25,7 +25,7 @@ public record RemoveFreezingConsumeEffect() implements ConsumeEffect {
     @Override
     public boolean apply(final Level level, final ItemStack stack, final LivingEntity user) {
         if (user.isFreezing()) {
-            user.setTicksFrozen(3);
+            user.clearFreeze();
         }
 
         return true;

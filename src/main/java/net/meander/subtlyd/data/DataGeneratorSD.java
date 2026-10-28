@@ -33,8 +33,8 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
 
         tags(pack);
         level(pack);
-        advancements(pack);
         items(pack);
+        advancements(pack);
         assets(pack);
     }
 
