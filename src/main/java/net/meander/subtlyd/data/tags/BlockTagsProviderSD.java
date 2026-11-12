@@ -25,11 +25,6 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        tag(BlockTagsSD.SNOW_BRICKS)
-                .add(BlockItemIdsSD.SNOW_BRICKS.block())
-                .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
-                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
-                .add(BlockItemIdsSD.SNOW_BRICK_WALL.block());
         tag(BlockTagsSD.STONE_TILES)
                 .add(BlockItemIdsSD.STONE_TILES.block())
                 .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
@@ -42,20 +37,14 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block());
         tag(BlockTags.WALLS)
-                .add(BlockItemIdsSD.SNOW_BRICK_WALL.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
                 .add(BlockItemIdsSD.STONE_TILE_WALL.block());
         tag(BlockTags.STAIRS)
-                .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
                 .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
                 .add(BlockItemIdsSD.TERRACOTTA_STAIRS.block())
                 .addAll(VanillaBlockTagsProvider.toIds(BlockItemIdsSD.DYED_TERRACOTTA_STAIRS).asList());
         tag(BlockTags.SLABS)
-                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
-                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
                 .add(BlockItemIdsSD.TERRACOTTA_SLAB.block())
@@ -157,7 +146,6 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.BEE_ATTRACTIVE)
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(BlockTagsSD.SNOW_BRICKS)
                 .addTag(BlockTagsSD.STONE_TILES)
                 .addTag(BlockTagsSD.DRIPSTONE)
                 .add(BlockItemIdsSD.STONE_PILLAR.block())

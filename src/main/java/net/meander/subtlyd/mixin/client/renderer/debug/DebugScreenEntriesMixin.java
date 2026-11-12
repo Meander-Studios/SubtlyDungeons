@@ -24,7 +24,7 @@ public abstract class DebugScreenEntriesMixin {
     @Shadow @Final @Mutable public static Map<DebugScreenProfile, Map<ResourceKey<DebugScreenEntry>, DebugScreenEntryStatus>> PROFILES;
 
     @Inject(method = "bootstrap", at = @At("TAIL"))
-    private static void registerModDebugEntries(Registry<DebugScreenEntry> registry, CallbackInfoReturnable<DebugScreenEntry> cir) {
+    private static void registerEntries(Registry<DebugScreenEntry> registry, CallbackInfoReturnable<DebugScreenEntry> cir) {
         DebugScreenEntriesSD.bootstrap(registry);
     }
 

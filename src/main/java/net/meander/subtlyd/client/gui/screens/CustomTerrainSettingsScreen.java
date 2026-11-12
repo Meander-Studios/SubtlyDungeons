@@ -6,6 +6,7 @@ import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -188,7 +189,7 @@ public class CustomTerrainSettingsScreen extends Screen {
 
     @Override
     protected void extractMenuBackground(final GuiGraphicsExtractor graphics) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, CreateWorldScreen.TAB_HEADER_BACKGROUND, 0, 0, 0.0F, 0.0F, width, layout.getHeaderHeight(), 16, 16);
+        graphics.blit(GuiPipeline.TEXTURED, CreateWorldScreen.TAB_HEADER_BACKGROUND, 0, 0, 0.0F, 0.0F, width, layout.getHeaderHeight(), 16, 16);
         extractMenuBackground(graphics, 0, layout.getHeaderHeight(), width, height);
     }
 

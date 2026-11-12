@@ -1,13 +1,9 @@
 package net.meander.subtlyd.sounds;
 
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.level.block.sounds.BlockSoundSetsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.block.sounds.BlockSoundCollection;
-
-import java.util.Optional;
 
 /**
  * @see net.minecraft.sounds.SoundEvents
@@ -39,7 +35,6 @@ public class SoundEventsSD {
     public static final Holder<SoundEvent> HEAVY_SHIELD_BLOCK = registerForHolder("item.heavy_shield.block");
     public static final Holder<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
     public static final Holder<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
-    public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SNOW_BRICK = SoundEvents.registerForBlockSoundSet(BlockSoundSetsSD.SNOW_BRICKS);
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering sound events...");}

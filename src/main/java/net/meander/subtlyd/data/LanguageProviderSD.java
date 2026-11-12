@@ -83,10 +83,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_STAIRS, "Polished Dripstone Stairs");
         translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_WALL, "Polished Dripstone Wall");
         translationBuilder.add(BlocksSD.REEDS, "Reeds");
-        translationBuilder.add(BlocksSD.SNOW_BRICK_SLAB, "Snow Brick Slab");
-        translationBuilder.add(BlocksSD.SNOW_BRICK_STAIRS, "Snow Brick Stairs");
-        translationBuilder.add(BlocksSD.SNOW_BRICK_WALL, "Snow Brick Wall");
-        translationBuilder.add(BlocksSD.SNOW_BRICKS, "Snow Bricks");
         translationBuilder.add(BlocksSD.SOUL_JACK_O_LANTERN, "Soul Jack o'Lantern");
         translationBuilder.add(BlocksSD.STONE_PILLAR, "Stone Pillar");
         translationBuilder.add(BlocksSD.STONE_TILE_SLAB, "Stone Tile Slab");

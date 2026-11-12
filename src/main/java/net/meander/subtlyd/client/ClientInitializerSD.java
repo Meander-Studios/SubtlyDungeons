@@ -5,7 +5,6 @@ import net.meander.subtlyd.client.camera.shake.CameraShakeEvents;
 import net.meander.subtlyd.client.color.block.BlockColorsSD;
 import net.meander.subtlyd.client.model.geom.LayerDefinitionsSD;
 import net.meander.subtlyd.client.particle.ParticleResourcesSD;
-import net.meander.subtlyd.client.renderer.special.SpecialModelRenderersSD;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.registries.BuiltInClientRegistriesSD;
 import net.meander.subtlyd.network.PacketNetworking;
@@ -23,7 +22,6 @@ public class ClientInitializerSD implements ClientModInitializer {
     private void render() {
         BlockColorsSD.registration();
         ParticleResourcesSD.registerProviders();
-        SpecialModelRenderersSD.bootstrap();
         LayerDefinitionsSD.registration();
         BuiltInClientRegistriesSD.bootstrap();
     }

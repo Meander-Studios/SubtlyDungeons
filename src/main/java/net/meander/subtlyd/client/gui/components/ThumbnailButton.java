@@ -3,10 +3,10 @@ package net.meander.subtlyd.client.gui.components;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
-import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
@@ -168,7 +168,7 @@ public abstract class ThumbnailButton extends AbstractButton {
                 pose.scale(scaleX, scaleY);
 
                 graphics.blit(
-                        RenderPipelines.GUI_TEXTURED,
+                        GuiPipeline.TEXTURED,
                         renderedImage,
                         0, 0, 0.0F, 0.0F,
                         textureWidth, textureHeight,

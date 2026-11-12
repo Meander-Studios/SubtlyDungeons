@@ -1,10 +1,13 @@
 package net.meander.subtlyd.core.registries;
 
+import com.mojang.serialization.MapCodec;
 import net.meander.subtlyd.client.gui.components.debug.DebugScreenEntriesSD;
 import net.meander.subtlyd.client.renderer.entity.EntityRenderersSD;
+import net.meander.subtlyd.client.renderer.special.SpecialModelRenderersSD;
 import net.minecraft.client.core.registries.ClientRegistries;
 import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltinRegistryBuilder;
 
@@ -15,6 +18,9 @@ public class BuiltInClientRegistriesSD {
     );
     public static final Registry<DebugScreenEntry> DEBUG_SCREEN_ENTRY = BUILDER.registerSimple(
             ClientRegistries.DEBUG_SCREEN_ENTRY, DebugScreenEntriesSD::bootstrap
+    );
+    public static final Registry<MapCodec<? extends SpecialModelRenderer.Unbaked<?>>> SPECIAL_MODEL_RENDERER_TYPE = BUILDER.registerSimple(
+            ClientRegistries.SPECIAL_MODEL_RENDERER_TYPE, SpecialModelRenderersSD::bootstrap
     );
     public static final Registry<? extends Registry<?>> REGISTRY = BUILDER.build();
 

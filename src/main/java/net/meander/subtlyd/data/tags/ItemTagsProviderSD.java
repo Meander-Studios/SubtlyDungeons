@@ -105,8 +105,6 @@ public class ItemTagsProviderSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE.item())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE.item())
                 .add(BlockItemIdsSD.CHARCOAL_BLOCK.item());
-        tag(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
-                .add(BlockItemIdsSD.SNOW_BRICKS.item());
         tag(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
                 .add(BlockItemIdsSD.IRON_GRATE.item());
         tag(ItemTagsSD.STEW_INGREDIENT)

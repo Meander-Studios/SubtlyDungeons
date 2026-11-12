@@ -11,10 +11,6 @@ import net.minecraft.world.level.block.ColorCollection;
 public class BlockItemIdsSD {
     public static final BlockItemId UNLIT_CAMPFIRE = create("unlit_campfire");
     public static final BlockItemId UNLIT_SOUL_CAMPFIRE = create("unlit_soul_campfire");
-    public static final BlockItemId SNOW_BRICKS = create("snow_bricks");
-    public static final BlockItemId SNOW_BRICK_STAIRS = create("snow_brick_stairs");
-    public static final BlockItemId SNOW_BRICK_SLAB = create("snow_brick_slab");
-    public static final BlockItemId SNOW_BRICK_WALL = create("snow_brick_wall");
     public static final BlockItemId CHARCOAL_BLOCK = create("charcoal_block");
     public static final BlockItemId IRON_GRATE = create("iron_grate");
     public static final BlockItemId STONE_PILLAR = create("stone_pillar");

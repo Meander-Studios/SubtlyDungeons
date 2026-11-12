@@ -2,7 +2,7 @@ package net.meander.subtlyd.world.entity.decoration;
 
 import com.mojang.serialization.Codec;
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.util.UtilSD;
+import net.meander.subtlyd.nbt.NbtUtilsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -102,7 +102,7 @@ public class Tent extends Entity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         output.store("color", DyeColor.CODEC, getColor());
-        output.store("DataVersionSD", Codec.INT, UtilSD.DATA_VERSION);
+        output.store("DataVersionSD", Codec.INT, NbtUtilsSD.DATA_VERSION);
     }
 
     @Override

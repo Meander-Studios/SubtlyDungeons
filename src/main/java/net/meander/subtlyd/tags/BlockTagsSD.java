@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.Block;
  * @see net.minecraft.tags.BlockTags
  */
 public class BlockTagsSD {
-    public static final TagKey<Block> SNOW_BRICKS = create("snow_bricks");
     public static final TagKey<Block> STONE_TILES = create("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = create("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");

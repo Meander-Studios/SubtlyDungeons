@@ -1,14 +1,13 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
@@ -47,7 +46,7 @@ public class WorldSelectionListMixin {
             CustomTerrainSettings.loadSettingsFromFile(oldWorldDir);
         }
 
-        @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+        @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lnet/minecraft/client/gui/GuiPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void modifyWorldIconWidth(Args args) {
             if (USE_EXPERIMENTAL_GUI) {
                 args.set(6, ICON_WIDTH);
@@ -76,12 +75,12 @@ public class WorldSelectionListMixin {
             return instance.mouseOverIcon(relX, relY, size);
         }
 
-        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
-        private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height) {
+        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lnet/minecraft/client/gui/GuiPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+        private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, final GuiPipeline guiPipeline, final Identifier location, final int x, final int y, final int width, final int height) {
             if (USE_EXPERIMENTAL_GUI) {
                 int MID_ICON = getContentX() + ICON_WIDTH / 4;
 
-                instance.blitSprite(RenderPipelines.GUI_TEXTURED, location, MID_ICON, getContentY(), width, height);
+                instance.blitSprite(guiPipeline, location, MID_ICON, getContentY(), width, height);
             }
         }
 

@@ -34,10 +34,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
     public void generate() {
         HolderGetter<Block> blockHolderGetter = BuiltInRegistries.BLOCK;
 
-        dropSelf(BlocksSD.SNOW_BRICKS);
-        dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
-        dropSelf(BlocksSD.SNOW_BRICK_SLAB);
-        dropSelf(BlocksSD.SNOW_BRICK_WALL);
         dropSelf(BlocksSD.CHARCOAL_BLOCK);
         dropSelf(BlocksSD.IRON_GRATE);
         dropSelf(BlocksSD.CHISELED_POLISHED_DRIPSTONE);

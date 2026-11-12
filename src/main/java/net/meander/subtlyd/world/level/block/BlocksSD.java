@@ -3,12 +3,10 @@ package net.meander.subtlyd.world.level.block;
 import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.level.block.sounds.BlockSoundSetsSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -16,15 +14,6 @@ import net.minecraft.world.level.material.PushReaction;
  * @see Blocks
  */
 public class BlocksSD {
-    public static final Block SNOW_BRICKS = Blocks.register(BlockItemIdsSD.SNOW_BRICKS, BlockBehaviour.Properties.of()
-            .mapColor(MapColor.SNOW)
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .strength(1.0F, 0.5F)
-            .sound(BlockSoundSetsSD.SNOW_BRICKS)
-    );
-    public static final Block SNOW_BRICK_STAIRS = registerStair(BlockItemIdsSD.SNOW_BRICK_STAIRS, SNOW_BRICKS);
-    public static final Block SNOW_BRICK_SLAB = registerSlab(BlockItemIdsSD.SNOW_BRICK_SLAB, SNOW_BRICKS);
-    public static final Block SNOW_BRICK_WALL = registerWall(BlockItemIdsSD.SNOW_BRICK_WALL, SNOW_BRICKS);
     public static final Block CHARCOAL_BLOCK = Blocks.register(BlockItemIdsSD.CHARCOAL_BLOCK, BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
     public static final Block IRON_GRATE = Blocks.register(BlockItemIdsSD.IRON_GRATE, IronGrateBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL)

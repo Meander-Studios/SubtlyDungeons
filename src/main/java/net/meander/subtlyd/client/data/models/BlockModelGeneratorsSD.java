@@ -210,7 +210,6 @@ public class BlockModelGeneratorsSD {
     }
 
     public void generateBlockModels() {
-        blockModelGenerators.family(BlocksSD.SNOW_BRICKS).generateFor(BlockFamiliesSD.SNOW_BRICKS);
         blockModelGenerators.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(BlockFamiliesSD.POLISHED_DRIPSTONE);
         blockModelGenerators.family(BlocksSD.STONE_TILES).generateFor(BlockFamiliesSD.STONE_TILES);
         blockModelGenerators.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);

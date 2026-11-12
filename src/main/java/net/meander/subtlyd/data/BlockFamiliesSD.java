@@ -12,16 +12,6 @@ import static net.minecraft.data.BlockFamilies.familyBuilder;
  */
 @SuppressWarnings("unused")
 public class BlockFamiliesSD {
-    public static final BlockFamily SNOW = familyBuilder(Blocks.SNOW_BLOCK)
-            .bricks(BlocksSD.SNOW_BRICKS)
-            .dontGenerateModel()
-            .getFamily();
-    public static final BlockFamily SNOW_BRICKS = familyBuilder(BlocksSD.SNOW_BRICKS)
-            .stairs(BlocksSD.SNOW_BRICK_STAIRS)
-            .slab(BlocksSD.SNOW_BRICK_SLAB)
-            .wall(BlocksSD.SNOW_BRICK_WALL)
-            .generateStonecutterRecipe()
-            .getFamily();
     public static final BlockFamily DRIPSTONE = familyBuilder(Blocks.DRIPSTONE_BLOCK)
             .polished(BlocksSD.POLISHED_DRIPSTONE)
             .dontGenerateModel()
