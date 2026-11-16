@@ -8,14 +8,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
-/**
- * Replaces weapons with their dagger equivalents.
- */
 public class SetDaggerFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetDaggerFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, SetDaggerFunction::new));
 
@@ -70,6 +68,11 @@ public class SetDaggerFunction extends LootItemConditionalFunction {
             }
         }
         return newStack;
+    }
+
+    @Override
+    protected void validateCustom(ValidationContext context) {
+
     }
 
     public static LootItemConditionalFunction.Builder<?> setDagger() {

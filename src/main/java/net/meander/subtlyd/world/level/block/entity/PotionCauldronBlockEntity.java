@@ -2,7 +2,7 @@ package net.meander.subtlyd.world.level.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -85,7 +85,7 @@ public class PotionCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        return saveWithFullMetadata(provider);
+    public CompoundTag getUpdateTag(final HolderGetter.Provider registries) {
+        return saveWithFullMetadata(registries);
     }
 }

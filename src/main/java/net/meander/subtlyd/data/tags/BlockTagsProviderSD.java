@@ -3,11 +3,12 @@ package net.meander.subtlyd.data.tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.references.BlockItemIdsSD;
+import net.meander.subtlyd.tags.BlockItemTagsSD;
 import net.meander.subtlyd.tags.BlockTagsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.VanillaBlockTagsProvider;
+import net.minecraft.data.tags.BlockItemTagsProvider;
 import net.minecraft.references.BlockIds;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockTags;
@@ -19,23 +20,13 @@ import java.util.concurrent.CompletableFuture;
  * @see net.minecraft.data.tags.VanillaBlockTagsProvider
  */
 public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
-    public BlockTagsProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public BlockTagsProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+        super(output, completableFuture);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        tag(BlockTagsSD.STONE_TILES)
-                .add(BlockItemIdsSD.STONE_TILES.block())
-                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_WALL.block());
-        tag(BlockTagsSD.DRIPSTONE)
-                .add(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block());
+        new BlockItemTagsProviderSD(tagId -> BlockItemTagsProvider.wrapForBlocks(this.tag(tagId.block()))).run();
         tag(BlockTags.WALLS)
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
                 .add(BlockItemIdsSD.STONE_TILE_WALL.block());
@@ -43,12 +34,12 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
                 .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
                 .add(BlockItemIdsSD.TERRACOTTA_STAIRS.block())
-                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIdsSD.DYED_TERRACOTTA_STAIRS).asList());
+                .addTag(BlockItemTagsSD.DYED_TERRACOTTA_STAIRS.block());
         tag(BlockTags.SLABS)
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
                 .add(BlockItemIdsSD.TERRACOTTA_SLAB.block())
-                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIdsSD.DYED_TERRACOTTA_SLAB).asList());
+                .addTag(BlockItemTagsSD.DYED_TERRACOTTA_SLABS.block());
         tag(BlockTags.WOODEN_SLABS)
                 .add(BlockItemIdsSD.OAK_WOOD_SLAB.block())
                 .add(BlockItemIdsSD.SPRUCE_WOOD_SLAB.block())
@@ -146,14 +137,16 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.BEE_ATTRACTIVE)
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(BlockTagsSD.STONE_TILES)
-                .addTag(BlockTagsSD.DRIPSTONE)
+                .addTag(BlockItemTagsSD.STONE_TILES.block())
+                .addTag(BlockItemTagsSD.DRIPSTONE.block())
                 .add(BlockItemIdsSD.STONE_PILLAR.block())
                 .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
                 .add(BlockItemIdsSD.IRON_GRATE.block())
                 .add(BlockItemIdsSD.BASALT_SLAB.block())
-                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIds.CONCRETE_STAIRS).asList())
-                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIds.CONCRETE_SLAB).asList());
+                .add(BlockItemIdsSD.TERRACOTTA_STAIRS.block())
+                .add(BlockItemIdsSD.TERRACOTTA_SLAB.block())
+                .addTag(BlockItemTagsSD.DYED_TERRACOTTA_STAIRS.block())
+                .addTag(BlockItemTagsSD.DYED_TERRACOTTA_SLABS.block());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .forceAddTag(BlockTags.SKULLS);
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)

@@ -26,8 +26,13 @@
 - Added "Also try Minecraft Dungeons 2!"
 
 ## Technical Changes
+### Data Tags
+- Created `dyed_terracotta_stairs` block item tag
+- Created `dyed_terracotta_slabs` block item tag
+
 ### Bug Fixes
 - Fixed bug causing all skins to appear slim on the Title Screen
 - Fixed bug causing the Experimental GUI settings option to display twice
 - Fixed bug causing flaming arrows to destroy non-flammable blocks
 - Fixed [[Bug #81]](https://github.com/Meander-Studios/SubtlyDungeons/issues/81) - Multiplayer Server fails with custom icon
+- Fixed bug causing to terracotta blocks not having a specified tool

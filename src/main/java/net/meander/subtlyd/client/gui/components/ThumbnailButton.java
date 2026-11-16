@@ -46,7 +46,7 @@ public abstract class ThumbnailButton extends AbstractButton {
     public Identifier getTexture() {
         if (!isActive() || isLocked()) {
             return lockedTexture;
-        } else if (isHoveredOrFocused() || isSelected()) {
+        } else if (isHovered() || isFocused() || isSelected()) {
             return hoverTexture;
         }
         return texture;

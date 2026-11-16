@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -41,6 +42,11 @@ public class EnchantNonHumanoidArmorFunction extends LootItemConditionalFunction
         }
 
         return itemStack;
+    }
+
+    @Override
+    protected void validateCustom(ValidationContext context) {
+
     }
 
     public static LootItemConditionalFunction.Builder<?> enchantNonHumanoidArmor() {

@@ -1,12 +1,12 @@
 package net.meander.subtlyd.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.FloatArgumentType;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.FloatArgument;
+import net.minecraft.commands.arguments.IntegerArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,13 +21,13 @@ public class CameraShakeCommand {
                                 .executes(context -> stopCameraShake(context.getSource(), EntityArgument.getPlayers(context, "targets")))))
                 .then(Commands.literal("add")
                         .then(Commands.argument("targets", EntityArgument.players())
-                                .then(Commands.argument("intensity", FloatArgumentType.floatArg(0.0F, 4.0F))
-                                        .then(Commands.argument("seconds", IntegerArgumentType.integer())
+                                .then(Commands.argument("intensity", FloatArgument.floatArg(0.0F, 4.0F))
+                                        .then(Commands.argument("seconds", IntegerArgument.integer())
                                                 .executes(context -> addCameraShake(
                                                         context.getSource(),
                                                         EntityArgument.getPlayers(context, "targets"),
-                                                        FloatArgumentType.getFloat(context, "intensity"),
-                                                        IntegerArgumentType.getInteger(context, "seconds")
+                                                        FloatArgument.getFloat(context, "intensity"),
+                                                        IntegerArgument.getInteger(context, "seconds")
                                                 ))
                                         )
                                 )
