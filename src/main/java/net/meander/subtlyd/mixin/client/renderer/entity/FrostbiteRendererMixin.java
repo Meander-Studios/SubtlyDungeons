@@ -1,0 +1,32 @@
+package net.meander.subtlyd.mixin.client.renderer.entity;
+
+import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
+import net.meander.subtlyd.util.UtilSD;
+import net.minecraft.client.renderer.entity.FrostbiteRenderer;
+import net.minecraft.client.renderer.entity.state.ZombieRenderState;
+import net.minecraft.resources.Identifier;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(FrostbiteRenderer.class)
+public class FrostbiteRendererMixin {
+    private final Identifier FROSTBITE_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/frostbite_leader.png");
+    private final Identifier BABY_FROSTBITE_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/frostbite_leader_baby.png");
+
+    @Inject(
+            method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;)Lnet/minecraft/resources/Identifier;",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private void modifyLeaderTexture(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
+        Identifier leaderLocation = cir.getReturnValue();
+
+        if (((UndeadRenderStateSD) state).isLeader()) {
+            leaderLocation = state.isBaby ? BABY_FROSTBITE_LEADER_LOCATION : FROSTBITE_LEADER_LOCATION;
+        }
+
+        cir.setReturnValue(leaderLocation);
+    }
+}

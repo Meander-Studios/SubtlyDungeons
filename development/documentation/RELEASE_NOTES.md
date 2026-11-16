@@ -7,6 +7,9 @@
 ### UI
 - Added new experimental Multiplayer UI
 
+### Zombie Leaders
+- Added unique Frostbite Leader texture
+
 ## Changes
 ### Combat
 - Reverted change to projectile y-axis momentum
