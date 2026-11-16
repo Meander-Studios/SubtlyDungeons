@@ -2,13 +2,16 @@ package net.meander.subtlyd.datafix;
 
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
+import net.minecraft.SharedConstants;
+import net.minecraft.util.datafix.DataFixers;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class V0SD extends Schema {
+public class V0SD extends NamespacedSchema {
     public V0SD(int versionKey, Schema parent) {
-        super(versionKey, parent);
+        super(versionKey, parent != null ? parent : DataFixers.getDataFixer().getSchema(SharedConstants.getCurrentVersion().dataVersion().version()));
     }
 
     @Override

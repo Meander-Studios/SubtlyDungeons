@@ -7,6 +7,7 @@
     "common.data.OverworldMaterialRulesMixin",
     "common.server.ReloadableServerResourcesMixin",
     "common.server.ServerAdvancementManagerMixin",
+    "common.server.level.ChunkMapMixin",
     "common.server.level.ServerLevelMixin",
     "common.server.packs.resources.MultiPackResourceManagerMixin",
     "common.world.entity.AreaEffectCloudMixin",
@@ -73,6 +74,7 @@
     "common.world.level.levelgen.feature.treedecorators.ShelfMushroomDecoratorMixin",
     "common.world.level.levelgen.structure.structures.OceanMonumentStructureMixin",
     "common.world.level.levelgen.structure.structures.SwampHutPieceMixin",
+    "common.world.level.storage.PlayerDataStorageMixin",
     "common.world.level.storage.loot.functions.LootItemFunctionsMixin",
     "common.world.level.storage.loot.predicates.LootItemConditionTypesMixin"
   ],
@@ -132,6 +134,7 @@
     "client.renderer.item.ItemModelResolverMixin",
     "client.renderer.item.ItemStackRenderStateMixin",
     "client.renderer.item.TridentSpecialRendererMixin",
+    "client.renderer.special.SpecialModelRenderersMixin",
     "client.resources.SplashManagerMixin",
     "client.resources.model.ModelManagerMixin",
     "client.resources.sounds.GuardianAttackSoundInstanceMixin",

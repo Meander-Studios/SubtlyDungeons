@@ -2,11 +2,12 @@ package net.meander.subtlyd.datafix;
 
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
+import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class V1SD extends Schema {
+public class V1SD extends NamespacedSchema {
     public V1SD(int versionKey, Schema parent) {
         super(versionKey, parent);
     }
