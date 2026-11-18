@@ -70,4 +70,4 @@
 - Fixed bug causing the Experimental GUI settings option to display twice
 - Fixed bug causing flaming arrows to destroy non-flammable blocks
 - Fixed [[Bug #81]](https://github.com/Meander-Studios/SubtlyDungeons/issues/81) - Multiplayer Server fails with custom icon
-- Fixed bug causing to terracotta blocks not having a specified tool
+- Fixed bug causing Terracotta Blocks to not have a specified tool
