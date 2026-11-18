@@ -75,7 +75,7 @@ public class RaiderMixin {
     /**
      * Determines if the raid difficulty is high enough to allow pillagers with bow enchanted crossbows to spawn in a raid.
      * The raid difficulty must reach level 10 before this can happen.
-     * i.e. Normal Difficulty with a raid omen of at least V, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
+     * i.e. Normal Difficulty with a Raid Omen of at least V, on wave 3 or higher OR Hard Difficulty with a a Raid Omen of at least IV, on wave 3 or higher
      */
     private void spawnArsonistRaiders(final ServerLevelAccessor level, final DifficultyInstance difficulty) {
         final int DIFFICULTY_THRESHOLD = 10;
