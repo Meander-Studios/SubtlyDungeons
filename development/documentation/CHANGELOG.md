@@ -63,6 +63,10 @@
 - Added Wood Slabs
 - Added Stripped Wood Stairs
 - Added Stripped Wood Slabs
+- Added Hyphae Stairs
+- Added Hyphae Slabs
+- Added Stripped Hyphae Stairs
+- Added Stripped Hyphae Slabs
 - Added Terracotta Stairs
 - Added Terracotta Slabs
 - Added Dyed Terracotta Stairs
