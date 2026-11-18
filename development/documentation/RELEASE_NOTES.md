@@ -1,7 +1,7 @@
 # [6.0] - UNRELEASED
 ## New Features
 ### Chocolate Bottle
-- Added Chocolate Bottles, which can be crafted with Sugar, Cocao Beans, and Water Bottles
+- Added Chocolate Bottles, which can be crafted with Sugar, Cocao Beans, and a Water Bottle
 - Will reset the drinker's Freezing ticks to 0
 
 ### Monster Variant Spawning
