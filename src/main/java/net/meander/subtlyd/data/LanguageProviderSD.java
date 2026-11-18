@@ -92,6 +92,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.UNLIT_CAMPFIRE, "Campfire");
         translationBuilder.add(ItemsSD.UNLIT_SOUL_CAMPFIRE, "Soul Campfire");
         translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
+
         translationBuilder.add(BlocksSD.OAK_WOOD_SLAB, "Oak Wood Slab");
         translationBuilder.add(BlocksSD.SPRUCE_WOOD_SLAB, "Spruce Wood Slab");
         translationBuilder.add(BlocksSD.BIRCH_WOOD_SLAB, "Birch Wood Slab");
@@ -178,6 +179,31 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.red(), "Red Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.white(), "White Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.yellow(), "Yellow Terracotta Stairs");
+
+        translationBuilder.add(BlocksSD.OAK_LOG_SLAB, "Oak Log Slab");
+        translationBuilder.add(BlocksSD.SPRUCE_LOG_SLAB, "Spruce Log Slab");
+        translationBuilder.add(BlocksSD.BIRCH_LOG_SLAB, "Birch Log Slab");
+        translationBuilder.add(BlocksSD.JUNGLE_LOG_SLAB, "Jungle Log Slab");
+        translationBuilder.add(BlocksSD.ACACIA_LOG_SLAB, "Acacia Log Slab");
+        translationBuilder.add(BlocksSD.DARK_OAK_LOG_SLAB, "Dark Oak Log Slab");
+        translationBuilder.add(BlocksSD.MANGROVE_LOG_SLAB, "Mangrove Log Slab");
+        translationBuilder.add(BlocksSD.POPLAR_LOG_SLAB, "Poplar Log Slab");
+        translationBuilder.add(BlocksSD.CHERRY_LOG_SLAB, "Cherry Log Slab");
+        translationBuilder.add(BlocksSD.PALE_OAK_LOG_SLAB, "Pale Oak Log Slab");
+        translationBuilder.add(BlocksSD.CRIMSON_STEM_SLAB, "Crimson Stem Slab");
+        translationBuilder.add(BlocksSD.WARPED_STEM_SLAB, "Warped Stem Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_OAK_LOG_SLAB, "Stripped Oak Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_SPRUCE_LOG_SLAB, "Stripped Spruce Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_BIRCH_LOG_SLAB, "Stripped Birch Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_JUNGLE_LOG_SLAB, "Stripped Jungle Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_ACACIA_LOG_SLAB, "Stripped Acacia Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_DARK_OAK_LOG_SLAB, "Stripped Dark Oak Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_MANGROVE_LOG_SLAB, "Stripped Mangrove Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_POPLAR_LOG_SLAB, "Stripped Poplar Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_CHERRY_LOG_SLAB, "Stripped Cherry Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_PALE_OAK_LOG_SLAB, "Stripped Pale Oak Log Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_CRIMSON_STEM_SLAB, "Stripped Crimson Stem Slab");
+        translationBuilder.add(BlocksSD.STRIPPED_WARPED_STEM_SLAB, "Stripped Warped Stem Slab");
     }
 
     private void gui(TranslationBuilder translationBuilder) {

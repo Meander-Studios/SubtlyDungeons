@@ -145,7 +145,78 @@ public class BlockFamiliesSD {
             .slab(BlocksSD.TERRACOTTA_SLAB)
             .generateStonecutterRecipe()
             .getFamily();
-
+    public static final BlockFamily OAK_LOG = familyBuilder(Blocks.OAK_LOG)
+            .slab(BlocksSD.OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_OAK_LOG = familyBuilder(Blocks.STRIPPED_OAK_LOG)
+            .slab(BlocksSD.STRIPPED_OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily BIRCH_LOG = familyBuilder(Blocks.BIRCH_LOG)
+            .slab(BlocksSD.BIRCH_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_BIRCH_LOG = familyBuilder(Blocks.STRIPPED_BIRCH_LOG)
+            .slab(BlocksSD.STRIPPED_BIRCH_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily SPRUCE_LOG = familyBuilder(Blocks.SPRUCE_LOG)
+            .slab(BlocksSD.SPRUCE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_SPRUCE_LOG = familyBuilder(Blocks.STRIPPED_SPRUCE_LOG)
+            .slab(BlocksSD.STRIPPED_SPRUCE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily JUNGLE_LOG = familyBuilder(Blocks.JUNGLE_LOG)
+            .slab(BlocksSD.JUNGLE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_JUNGLE_LOG = familyBuilder(Blocks.STRIPPED_JUNGLE_LOG)
+            .slab(BlocksSD.STRIPPED_JUNGLE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily ACACIA_LOG = familyBuilder(Blocks.ACACIA_LOG)
+            .slab(BlocksSD.ACACIA_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_ACACIA_LOG = familyBuilder(Blocks.STRIPPED_ACACIA_LOG)
+            .slab(BlocksSD.STRIPPED_ACACIA_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily DARK_OAK_LOG = familyBuilder(Blocks.DARK_OAK_LOG)
+            .slab(BlocksSD.DARK_OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_DARK_OAK_LOG = familyBuilder(Blocks.STRIPPED_DARK_OAK_LOG)
+            .slab(BlocksSD.STRIPPED_DARK_OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily MANGROVE_LOG = familyBuilder(Blocks.MANGROVE_LOG)
+            .slab(BlocksSD.MANGROVE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_MANGROVE_LOG = familyBuilder(Blocks.STRIPPED_MANGROVE_LOG)
+            .slab(BlocksSD.STRIPPED_MANGROVE_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily CHERRY_LOG = familyBuilder(Blocks.CHERRY_LOG)
+            .slab(BlocksSD.CHERRY_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_CHERRY_LOG = familyBuilder(Blocks.STRIPPED_CHERRY_LOG)
+            .slab(BlocksSD.STRIPPED_CHERRY_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily PALE_OAK_LOG = familyBuilder(Blocks.PALE_OAK_LOG)
+            .slab(BlocksSD.PALE_OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_PALE_OAK_LOG = familyBuilder(Blocks.STRIPPED_PALE_OAK_LOG)
+            .slab(BlocksSD.STRIPPED_PALE_OAK_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily POPLAR_LOG = familyBuilder(Blocks.POPLAR_LOG)
+            .slab(BlocksSD.POPLAR_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_POPLAR_LOG = familyBuilder(Blocks.STRIPPED_POPLAR_LOG)
+            .slab(BlocksSD.STRIPPED_POPLAR_LOG_SLAB)
+            .getFamily();
+    public static final BlockFamily CRIMSON_STEM = familyBuilder(Blocks.CRIMSON_STEM)
+            .slab(BlocksSD.CRIMSON_STEM_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_CRIMSON_STEM = familyBuilder(Blocks.STRIPPED_CRIMSON_STEM)
+            .slab(BlocksSD.STRIPPED_CRIMSON_STEM_SLAB)
+            .getFamily();
+    public static final BlockFamily WARPED_STEM = familyBuilder(Blocks.WARPED_STEM)
+            .slab(BlocksSD.WARPED_STEM_SLAB)
+            .getFamily();
+    public static final BlockFamily STRIPPED_WARPED_STEM = familyBuilder(Blocks.STRIPPED_WARPED_STEM)
+            .slab(BlocksSD.STRIPPED_WARPED_STEM_SLAB)
+            .getFamily();
     public static void init() {
         DYED_TERRACOTTA.forEach(_ -> {});
     }

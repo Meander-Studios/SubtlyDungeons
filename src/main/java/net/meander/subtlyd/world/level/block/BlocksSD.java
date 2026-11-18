@@ -127,6 +127,30 @@ public class BlocksSD {
     public static final ColorCollection<Block> DYED_TERRACOTTA_SLAB = ColorCollection.zipMap(
             ColorCollection.VALUES, BlockItemIdsSD.DYED_TERRACOTTA_SLAB, (color, id) -> registerSlab(id, Blocks.DYED_TERRACOTTA.pick(color))
     );
+    public static final Block OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.OAK_LOG_SLAB, Blocks.OAK_LOG);
+    public static final Block SPRUCE_LOG_SLAB = registerSlab(BlockItemIdsSD.SPRUCE_LOG_SLAB, Blocks.SPRUCE_LOG);
+    public static final Block BIRCH_LOG_SLAB = registerSlab(BlockItemIdsSD.BIRCH_LOG_SLAB, Blocks.BIRCH_LOG);
+    public static final Block JUNGLE_LOG_SLAB = registerSlab(BlockItemIdsSD.JUNGLE_LOG_SLAB, Blocks.JUNGLE_LOG);
+    public static final Block ACACIA_LOG_SLAB = registerSlab(BlockItemIdsSD.ACACIA_LOG_SLAB, Blocks.ACACIA_LOG);
+    public static final Block DARK_OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.DARK_OAK_LOG_SLAB, Blocks.DARK_OAK_LOG);
+    public static final Block MANGROVE_LOG_SLAB = registerSlab(BlockItemIdsSD.MANGROVE_LOG_SLAB, Blocks.MANGROVE_LOG);
+    public static final Block POPLAR_LOG_SLAB = registerSlab(BlockItemIdsSD.POPLAR_LOG_SLAB, Blocks.POPLAR_LOG);
+    public static final Block CHERRY_LOG_SLAB = registerSlab(BlockItemIdsSD.CHERRY_LOG_SLAB, Blocks.CHERRY_LOG);
+    public static final Block PALE_OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.PALE_OAK_LOG_SLAB, Blocks.PALE_OAK_LOG);
+    public static final Block CRIMSON_STEM_SLAB = registerSlab(BlockItemIdsSD.CRIMSON_STEM_SLAB, Blocks.CRIMSON_STEM);
+    public static final Block WARPED_STEM_SLAB = registerSlab(BlockItemIdsSD.WARPED_STEM_SLAB, Blocks.WARPED_STEM);
+    public static final Block STRIPPED_OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_OAK_LOG_SLAB, Blocks.STRIPPED_OAK_LOG);
+    public static final Block STRIPPED_SPRUCE_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_SPRUCE_LOG_SLAB, Blocks.STRIPPED_SPRUCE_LOG);
+    public static final Block STRIPPED_BIRCH_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_BIRCH_LOG_SLAB, Blocks.STRIPPED_BIRCH_LOG);
+    public static final Block STRIPPED_JUNGLE_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_JUNGLE_LOG_SLAB, Blocks.STRIPPED_JUNGLE_LOG);
+    public static final Block STRIPPED_ACACIA_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_ACACIA_LOG_SLAB, Blocks.STRIPPED_ACACIA_LOG);
+    public static final Block STRIPPED_DARK_OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_DARK_OAK_LOG_SLAB, Blocks.STRIPPED_DARK_OAK_LOG);
+    public static final Block STRIPPED_MANGROVE_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_MANGROVE_LOG_SLAB, Blocks.STRIPPED_MANGROVE_LOG);
+    public static final Block STRIPPED_POPLAR_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_POPLAR_LOG_SLAB, Blocks.STRIPPED_POPLAR_LOG);
+    public static final Block STRIPPED_CHERRY_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CHERRY_LOG_SLAB, Blocks.STRIPPED_CHERRY_LOG);
+    public static final Block STRIPPED_PALE_OAK_LOG_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_PALE_OAK_LOG_SLAB, Blocks.STRIPPED_PALE_OAK_LOG);
+    public static final Block STRIPPED_CRIMSON_STEM_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CRIMSON_STEM_SLAB, Blocks.STRIPPED_CRIMSON_STEM);
+    public static final Block STRIPPED_WARPED_STEM_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_WARPED_STEM_SLAB, Blocks.STRIPPED_WARPED_STEM);
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering blocks...");

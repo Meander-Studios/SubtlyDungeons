@@ -115,6 +115,30 @@ public class CreativeModeTabsSD {
             entries.insertAfter(STRIPPED_CRIMSON_HYPHAE_STAIRS, STRIPPED_CRIMSON_HYPHAE_SLAB);
             entries.insertAfter(STRIPPED_WARPED_HYPHAE, STRIPPED_WARPED_HYPHAE_STAIRS);
             entries.insertAfter(STRIPPED_WARPED_HYPHAE_STAIRS, STRIPPED_WARPED_HYPHAE_SLAB);
+            entries.insertAfter(OAK_LOG, OAK_LOG_SLAB);
+            entries.insertAfter(SPRUCE_LOG, SPRUCE_LOG_SLAB);
+            entries.insertAfter(BIRCH_LOG, BIRCH_LOG_SLAB);
+            entries.insertAfter(JUNGLE_LOG, JUNGLE_LOG_SLAB);
+            entries.insertAfter(ACACIA_LOG, ACACIA_LOG_SLAB);
+            entries.insertAfter(DARK_OAK_LOG, DARK_OAK_LOG_SLAB);
+            entries.insertAfter(MANGROVE_LOG, MANGROVE_LOG_SLAB);
+            entries.insertAfter(CHERRY_LOG, CHERRY_LOG_SLAB);
+            entries.insertAfter(PALE_OAK_LOG, PALE_OAK_LOG_SLAB);
+            entries.insertAfter(POPLAR_LOG, POPLAR_LOG_SLAB);
+            entries.insertAfter(CRIMSON_STEM, CRIMSON_STEM_SLAB);
+            entries.insertAfter(WARPED_STEM, WARPED_STEM_SLAB);
+            entries.insertAfter(STRIPPED_OAK_LOG, STRIPPED_OAK_LOG_SLAB);
+            entries.insertAfter(STRIPPED_SPRUCE_LOG, STRIPPED_SPRUCE_LOG_SLAB);
+            entries.insertAfter(STRIPPED_BIRCH_LOG, STRIPPED_BIRCH_LOG_SLAB);
+            entries.insertAfter(STRIPPED_JUNGLE_LOG, STRIPPED_JUNGLE_LOG_SLAB);
+            entries.insertAfter(STRIPPED_ACACIA_LOG, STRIPPED_ACACIA_LOG_SLAB);
+            entries.insertAfter(STRIPPED_DARK_OAK_LOG, STRIPPED_DARK_OAK_LOG_SLAB);
+            entries.insertAfter(STRIPPED_MANGROVE_LOG, STRIPPED_MANGROVE_LOG_SLAB);
+            entries.insertAfter(STRIPPED_CHERRY_LOG, STRIPPED_CHERRY_LOG_SLAB);
+            entries.insertAfter(STRIPPED_PALE_OAK_LOG, STRIPPED_PALE_OAK_LOG_SLAB);
+            entries.insertAfter(STRIPPED_POPLAR_LOG, STRIPPED_POPLAR_LOG_SLAB);
+            entries.insertAfter(STRIPPED_CRIMSON_STEM, STRIPPED_CRIMSON_STEM_SLAB);
+            entries.insertAfter(STRIPPED_WARPED_STEM, STRIPPED_WARPED_STEM_SLAB);
         });
     }
 

@@ -16,6 +16,12 @@
 ### Colossal Squids
 - Added a small chance for giant Squids to spawn in Deep Cold Oceans and Deep Frozen Oceans
 
+### Blocks
+- Added Log Slabs
+- Added Stripped Log Slabs
+- Added Stem Slabs
+- Added Stripped Stem Slabs
+
 ### UI
 - Added new experimental Multiplayer UI
 

@@ -129,5 +129,29 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         add(BlocksSD.TERRACOTTA_SLAB, this::createSlabItemTable);
         BlocksSD.DYED_TERRACOTTA_STAIRS.forEach(this::dropSelf);
         BlocksSD.DYED_TERRACOTTA_SLAB.forEach(block -> add(block, this::createSlabItemTable));
+        dropSelf(BlocksSD.OAK_LOG_SLAB);
+        dropSelf(BlocksSD.SPRUCE_LOG_SLAB);
+        dropSelf(BlocksSD.BIRCH_LOG_SLAB);
+        dropSelf(BlocksSD.JUNGLE_LOG_SLAB);
+        dropSelf(BlocksSD.ACACIA_LOG_SLAB);
+        dropSelf(BlocksSD.DARK_OAK_LOG_SLAB);
+        dropSelf(BlocksSD.MANGROVE_LOG_SLAB);
+        dropSelf(BlocksSD.CHERRY_LOG_SLAB);
+        dropSelf(BlocksSD.PALE_OAK_LOG_SLAB);
+        dropSelf(BlocksSD.POPLAR_LOG_SLAB);
+        dropSelf(BlocksSD.CRIMSON_STEM_SLAB);
+        dropSelf(BlocksSD.WARPED_STEM_SLAB);
+        dropSelf(BlocksSD.STRIPPED_OAK_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_SPRUCE_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_BIRCH_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_JUNGLE_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_ACACIA_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_DARK_OAK_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_MANGROVE_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_CHERRY_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_PALE_OAK_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_POPLAR_LOG_SLAB);
+        dropSelf(BlocksSD.STRIPPED_CRIMSON_STEM_SLAB);
+        dropSelf(BlocksSD.STRIPPED_WARPED_STEM_SLAB);
     }
 }

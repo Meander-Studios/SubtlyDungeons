@@ -225,6 +225,30 @@ public class ItemsSD {
             .usingConvertsTo(Items.GLASS_BOTTLE)
             .stacksTo(16)
     );
+    public static final Item OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.OAK_LOG_SLAB, BlocksSD.OAK_LOG_SLAB);
+    public static final Item SPRUCE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.SPRUCE_LOG_SLAB, BlocksSD.SPRUCE_LOG_SLAB);
+    public static final Item BIRCH_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.BIRCH_LOG_SLAB, BlocksSD.BIRCH_LOG_SLAB);
+    public static final Item JUNGLE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.JUNGLE_LOG_SLAB, BlocksSD.JUNGLE_LOG_SLAB);
+    public static final Item ACACIA_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.ACACIA_LOG_SLAB, BlocksSD.ACACIA_LOG_SLAB);
+    public static final Item DARK_OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.DARK_OAK_LOG_SLAB, BlocksSD.DARK_OAK_LOG_SLAB);
+    public static final Item MANGROVE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.MANGROVE_LOG_SLAB, BlocksSD.MANGROVE_LOG_SLAB);
+    public static final Item POPLAR_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.POPLAR_LOG_SLAB, BlocksSD.POPLAR_LOG_SLAB);
+    public static final Item CHERRY_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.CHERRY_LOG_SLAB, BlocksSD.CHERRY_LOG_SLAB);
+    public static final Item PALE_OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.PALE_OAK_LOG_SLAB, BlocksSD.PALE_OAK_LOG_SLAB);
+    public static final Item CRIMSON_STEM_SLAB = Items.registerBlock(BlockItemIdsSD.CRIMSON_STEM_SLAB, BlocksSD.CRIMSON_STEM_SLAB);
+    public static final Item WARPED_STEM_SLAB = Items.registerBlock(BlockItemIdsSD.WARPED_STEM_SLAB, BlocksSD.WARPED_STEM_SLAB);
+    public static final Item STRIPPED_OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_OAK_LOG_SLAB, BlocksSD.STRIPPED_OAK_LOG_SLAB);
+    public static final Item STRIPPED_SPRUCE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_SPRUCE_LOG_SLAB, BlocksSD.STRIPPED_SPRUCE_LOG_SLAB);
+    public static final Item STRIPPED_BIRCH_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_BIRCH_LOG_SLAB, BlocksSD.STRIPPED_BIRCH_LOG_SLAB);
+    public static final Item STRIPPED_JUNGLE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_JUNGLE_LOG_SLAB, BlocksSD.STRIPPED_JUNGLE_LOG_SLAB);
+    public static final Item STRIPPED_ACACIA_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_ACACIA_LOG_SLAB, BlocksSD.STRIPPED_ACACIA_LOG_SLAB);
+    public static final Item STRIPPED_DARK_OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_DARK_OAK_LOG_SLAB, BlocksSD.STRIPPED_DARK_OAK_LOG_SLAB);
+    public static final Item STRIPPED_MANGROVE_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_MANGROVE_LOG_SLAB, BlocksSD.STRIPPED_MANGROVE_LOG_SLAB);
+    public static final Item STRIPPED_POPLAR_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_POPLAR_LOG_SLAB, BlocksSD.STRIPPED_POPLAR_LOG_SLAB);
+    public static final Item STRIPPED_CHERRY_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_CHERRY_LOG_SLAB, BlocksSD.STRIPPED_CHERRY_LOG_SLAB);
+    public static final Item STRIPPED_PALE_OAK_LOG_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_PALE_OAK_LOG_SLAB, BlocksSD.STRIPPED_PALE_OAK_LOG_SLAB);
+    public static final Item STRIPPED_CRIMSON_STEM_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_CRIMSON_STEM_SLAB, BlocksSD.STRIPPED_CRIMSON_STEM_SLAB);
+    public static final Item STRIPPED_WARPED_STEM_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_WARPED_STEM_SLAB, BlocksSD.STRIPPED_WARPED_STEM_SLAB);
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering items...");
