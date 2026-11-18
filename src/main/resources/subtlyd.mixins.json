@@ -23,6 +23,7 @@
     "common.world.entity.animal.DolphinMixin",
     "common.world.entity.animal.PolarBearMixin",
     "common.world.entity.animal.SquidMixin",
+    "common.world.entity.animal.golem.SnowGolemMixin",
     "common.world.entity.boss.WitherBossMixin",
     "common.world.entity.monster.GuardianMixin$GuardianAttackGoalMixin",
     "common.world.entity.monster.piglin.PiglinMixin",

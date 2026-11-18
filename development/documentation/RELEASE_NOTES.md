@@ -29,6 +29,9 @@
 ### Combat
 - Reverted change to projectile y-axis momentum
 
+### Snow Golems
+- Snow Golems that are standing on Blue Ice will now throw Ice Balls instead of Snowballs
+
 ### Monsters
 #### Stray
 - Changed Strays to shoot and drop Freezing Tipped Arrows
@@ -62,6 +65,7 @@
 ### Data Tags
 - Created `dyed_terracotta_stairs` block item tag
 - Created `dyed_terracotta_slabs` block item tag
+- Created `chills_snow_golem` block tag
 - Created `spawns_cold_variant_monsters` biome tag
 - Created `spawns_warm_variant_monsters` biome tag
 

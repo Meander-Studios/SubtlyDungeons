@@ -184,5 +184,7 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTagsSD.ARROW_FLAMMABLE)
                 .addAll(registries.lookupOrThrow(Registries.BLOCK).listElements().filter(b -> b.value().defaultBlockState().ignitedByLava()).map(Holder.Reference::key))
                 .forceAddTag(BlockTags.FLOWERS);
+        tag(BlockTagsSD.CHILLS_SNOW_GOLEM)
+                .add(BlockItemIds.BLUE_ICE.block());
     }
 }

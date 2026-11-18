@@ -15,6 +15,7 @@ public class BlockTagsSD {
     public static final TagKey<Block> TALL_PLANTS = create("tall_plants");
     public static final TagKey<Block> SILENT_FOLIAGE = create("silent_foliage");
     public static final TagKey<Block> ARROW_FLAMMABLE = create("arrow_flammable");
+    public static final TagKey<Block> CHILLS_SNOW_GOLEM = create("chills_snow_golem");
 
     private static TagKey<Block> create(String string) {
         return TagKey.create(Registries.BLOCK, UtilSD.identifier(string));
