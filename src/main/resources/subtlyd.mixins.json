@@ -27,6 +27,7 @@
     "common.world.entity.monster.GuardianMixin$GuardianAttackGoalMixin",
     "common.world.entity.monster.piglin.PiglinMixin",
     "common.world.entity.monster.raid.RaiderMixin",
+    "common.world.entity.monster.skeleton.AbstractSkeletonMixin",
     "common.world.entity.monster.skeleton.StrayMixin",
     "common.world.entity.monster.zombie.ZombieMixin",
     "common.world.entity.projectile.EvokerFangsMixin",

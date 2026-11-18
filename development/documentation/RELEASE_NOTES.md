@@ -7,6 +7,12 @@
 ### UI
 - Added new experimental Multiplayer UI
 
+#### Monster Variant Spawning
+- Biome specific monster variants (Husk, Parched, Frostbite, Strays) will now start to spawn in place of their Zombie variants
+  - This only happens on Hard difficulty
+  - The variant to temperate monster ratio will grow with Local Difficulty
+    - Variants will take up 100% of spawns when Local Difficulty is greater than 3.00
+
 ### Zombie Leaders
 - Added unique Frostbite Leader texture
 
@@ -15,7 +21,18 @@
 - Reverted change to projectile y-axis momentum
 
 ### Monsters
+#### Stray
 - Changed Strays to shoot and drop Freezing Tipped Arrows
+- Changed Strays to spawn in Snowy Beaches, Snowy Taigas, and Groves
+
+#### Frostbite
+- Changed Frostbites to spawn in Snowy Beaches, Snowy Taigas, and Groves
+
+#### Parched
+- Changed Strays to spawn in Badlands and Eroded Badlands
+
+#### Husk
+- Changed Frostbites to spawn in Badlands and Eroded Badlands
 
 ### Blocks
 - Changed Ice to no longer cause cold wind noises
@@ -36,6 +53,8 @@
 ### Data Tags
 - Created `dyed_terracotta_stairs` block item tag
 - Created `dyed_terracotta_slabs` block item tag
+- Created `spawns_cold_variant_monsters` biome tag
+- Created `spawns_warm_variant_monsters` biome tag
 
 ### Bug Fixes
 - Fixed bug causing all skins to appear slim on the Title Screen

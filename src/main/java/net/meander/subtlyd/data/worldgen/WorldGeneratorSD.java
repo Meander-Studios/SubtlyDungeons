@@ -428,6 +428,8 @@ public class WorldGeneratorSD implements DataProvider {
             modifyForestLike();
             modifyPlainsLike();
             modifySavannaLike();
+            modifyCold();
+            modifyWarm();
         }
 
         private static void modifySwampLike() {
@@ -488,6 +490,17 @@ public class WorldGeneratorSD implements DataProvider {
         private static void modifySavannaLike() {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.BAOBAB);
         }
+
+        private static void modifyCold() {
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.GROVE, Biomes.SNOWY_TAIGA), MobCategory.MONSTER, EntityTypes.STRAY, 100, 4, 4);
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.SNOWY_BEACH, Biomes.GROVE, Biomes.SNOWY_TAIGA), MobCategory.MONSTER, EntityTypes.FROSTBITE, 95, 4, 4);
+        }
+
+        private static void modifyWarm() {
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.ERODED_BADLANDS), MobCategory.MONSTER, EntityTypes.PARCHED, 100, 4, 4);
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.BADLANDS, Biomes.ERODED_BADLANDS), MobCategory.MONSTER, EntityTypes.HUSK, 95, 4, 4);
+        }
+
 
         private static void modifyFog() {
             final Identifier fogDistance = UtilSD.identifier("fog_distance");

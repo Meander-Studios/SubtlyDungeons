@@ -59,6 +59,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -342,18 +343,20 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "applyItemBlocking", at = @At("RETURN"), cancellable = true)
-    private void modifyItemBlocking(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Float> cir) {
-        float blockedAmount = cir.getReturnValue();
+    private void modifyItemBlocking(final ServerLevel level, final DamageSource source, final float damage, CallbackInfoReturnable<Optional<Float>> cir) {
+        Optional<Float> blockedAmount = cir.getReturnValue();
 
-        if (blockedAmount > 0.0F) {
-            wasAttackBlocked = true;
+        if (blockedAmount.isPresent()) {
+            if (blockedAmount.get() > 0.0F) {
+                wasAttackBlocked = true;
 
-            if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
-                LivingEntity entity = (LivingEntity) (Object) this;
-                float shieldStrength = (float) entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
+                if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
+                    LivingEntity entity = (LivingEntity) (Object) this;
+                    float shieldStrength = (float) entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
 
-                if (blockedAmount > shieldStrength) {
-                    cir.setReturnValue(shieldStrength);
+                    if (blockedAmount.get() > shieldStrength) {
+                        cir.setReturnValue(Optional.of(shieldStrength));
+                    }
                 }
             }
         }
