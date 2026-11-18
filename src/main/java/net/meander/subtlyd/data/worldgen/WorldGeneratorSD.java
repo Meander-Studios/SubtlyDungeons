@@ -65,7 +65,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
     public static final double SOFT_SCALAR = 0.15;
-    private static final double BIOME_SCALAR = 1.5;
+    private static final double BIOME_SCALAR = 2.0;
     private static final double EROSION_SCALAR = CustomTerrainSettingsScreen.initialErosion + ((CustomTerrainSettings.biomeScale - 1.0) * SOFT_SCALAR);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final ResourceKey<DensityFunction> offsetKey = ResourceKey.create(Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/offset"));

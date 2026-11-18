@@ -3,6 +3,7 @@ package net.meander.subtlyd.client.gui.screens;
 import com.mojang.datafixers.util.Pair;
 import net.meander.subtlyd.client.gui.components.RatioSliderButton;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
+import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -17,7 +18,6 @@ import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
-import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -41,9 +41,6 @@ public class CustomTerrainSettingsScreen extends Screen {
     private AbstractSliderButton biomeSlider;
     private AbstractSliderButton erosionSlider;
     private AbstractSliderButton oceanSlider;
-    public static final double MIN_VALUE = 0.1;
-    public static final double MAX_VALUE = 10.0;
-    public static final double MAX_VALUE_OCEAN = 1.75;
     public static double initialMaster = 1.0;
     public static double initialContinent = 1.0;
     public static double initialBiome = 1.0;
@@ -68,7 +65,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         list = layout.addToContents(new SliderList());
 
         list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.custom.master_scale"), MthSD.POWER_OF_2_STEPS,
                 CustomTerrainSettings.masterScale,
                 (newValue) -> {
                     CustomTerrainSettings.applyMasterScale(newValue);
@@ -77,22 +74,22 @@ public class CustomTerrainSettingsScreen extends Screen {
         ));
 
         continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.continent_scale"), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.custom.continent_scale"), MthSD.POWER_OF_2_STEPS,
                 CustomTerrainSettings.continentScale, v -> CustomTerrainSettings.continentScale = v
         );
 
         biomeSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.biome_scale"), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.custom.biome_scale"), MthSD.POWER_OF_2_STEPS,
                 CustomTerrainSettings.biomeScale, v -> CustomTerrainSettings.biomeScale = v
         );
 
         erosionSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.erosion_scale"), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.custom.erosion_scale"), MthSD.POWER_OF_2_STEPS,
                 CustomTerrainSettings.erosionScale, v -> CustomTerrainSettings.erosionScale = v
         );
 
         oceanSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, MAX_VALUE_OCEAN,
+                Component.translatable("createWorld.custom.ocean_depth_scale"), new double[] { 1.0, 1.25, 1.5, 1.75 },
                 CustomTerrainSettings.oceanDepthScale, v -> CustomTerrainSettings.oceanDepthScale = v
         );
 

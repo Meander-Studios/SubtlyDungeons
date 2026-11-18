@@ -6,9 +6,8 @@
 
 ### Monster Variant Spawning
 - Biome specific monster variants (Husk, Parched, Frostbite, Strays) will now start to spawn in place of their Zombie variants
-  - This only happens on Hard difficulty
   - The variant to temperate monster ratio will grow with Local Difficulty
-    - Variants will take up 100% of spawns when Local Difficulty is greater than 3.00
+    - Variants will take up 100% of spawns when Local Difficulty is greater than 3.0
 
 ### Zombie Leaders
 - Added unique Frostbite Leader texture
@@ -26,6 +25,13 @@
 - Added new experimental Multiplayer UI
 
 ## Changes
+### World Generation
+- Modified all biomes to be twice as large as their vanilla sizes
+- Modified Custom Terrain Settings system to snap to powers of 2
+  - This should help chunk performance
+  - The new maximum size is 16 times as large
+  - The new minimum size is 16 times as small
+
 ### Combat
 - Reverted change to projectile y-axis momentum
 

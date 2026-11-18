@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
+import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,13 +15,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class CustomTerrainSettings {
+    private static final double MIN_VALUE_OCEAN = 0.1;
+    private static final double MAX_VALUE_OCEAN = 1.75;
+    private static final String dataFile = "custom_terrain_settings.json";
     public static boolean isWorldCopy = false;
     public static double masterScale = CustomTerrainSettingsScreen.initialMaster;
     public static double continentScale = CustomTerrainSettingsScreen.initialContinent;
     public static double biomeScale = CustomTerrainSettingsScreen.initialBiome;
     public static double erosionScale = CustomTerrainSettingsScreen.initialErosion;
     public static double oceanDepthScale = CustomTerrainSettingsScreen.initialOceanDepth;
-    private static final String dataFile = "custom_terrain_settings.json";
 
     public record TerrainData(double masterScale, double continentScale, double biomeScale, double erosionScale, double oceanDepthScale) {
         public static final Codec<TerrainData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -62,11 +65,12 @@ public class CustomTerrainSettings {
 
     public static void applyMasterScale(double newMasterScale) {
         if (getSettingsScreen() != null) {
-            masterScale = Math.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
-            continentScale = Math.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
-            biomeScale = Math.clamp(newMasterScale, CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
-            erosionScale = Math.clamp(getSoftScale(CustomTerrainSettingsScreen.initialErosion, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE);
-            oceanDepthScale = Math.clamp(getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale), CustomTerrainSettingsScreen.MIN_VALUE, CustomTerrainSettingsScreen.MAX_VALUE_OCEAN);
+            double snapped = MthSD.snapToPowerOf2(newMasterScale, MthSD.POWER_OF_2_STEPS[0], MthSD.POWER_OF_2_STEPS[8]);
+            masterScale = snapped;
+            continentScale = snapped;
+            biomeScale = snapped;
+            erosionScale = Math.clamp(getSoftScale(CustomTerrainSettingsScreen.initialErosion, snapped), MthSD.POWER_OF_2_STEPS[0], MthSD.POWER_OF_2_STEPS[8]);
+            oceanDepthScale = Math.clamp(getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale), MIN_VALUE_OCEAN, MAX_VALUE_OCEAN);
         }
     }
 
@@ -77,7 +81,6 @@ public class CustomTerrainSettings {
             }
 
             TerrainData terrainData = new TerrainData(masterScale, continentScale, biomeScale, erosionScale, oceanDepthScale);
-
             JsonElement encodedData = TerrainData.CODEC.encodeStart(JsonOps.INSTANCE, terrainData).getOrThrow(e -> new RuntimeException("Failed to encode settings: " + e));
 
             Files.writeString(worldRoot.resolve(dataFile), encodedData.toString());
