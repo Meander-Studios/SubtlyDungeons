@@ -61,6 +61,9 @@ public class BiomeTagsProviderSD extends FabricTagsProvider<Biome> {
                 .add(Biomes.DESERT)
                 .add(Biomes.BADLANDS)
                 .add(Biomes.ERODED_BADLANDS);
+        tag(BiomeTagsSD.SPAWNS_COLOSSAL_SQUIDS)
+                .add(Biomes.DEEP_COLD_OCEAN)
+                .add(Biomes.DEEP_FROZEN_OCEAN);
         tag(BiomeTags.IS_BEACH)
                 .add(BiomesSD.GRAVEL_BEACH);
         tag(BiomeTags.IS_RIVER)

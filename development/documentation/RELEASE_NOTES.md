@@ -4,10 +4,7 @@
 - Added Chocolate Bottles, which can be crafted with Sugar, Cocao Beans, and Water Bottles
 - Will reset the drinker's Freezing ticks to 0
 
-### UI
-- Added new experimental Multiplayer UI
-
-#### Monster Variant Spawning
+### Monster Variant Spawning
 - Biome specific monster variants (Husk, Parched, Frostbite, Strays) will now start to spawn in place of their Zombie variants
   - This only happens on Hard difficulty
   - The variant to temperate monster ratio will grow with Local Difficulty
@@ -15,6 +12,12 @@
 
 ### Zombie Leaders
 - Added unique Frostbite Leader texture
+
+### Colossal Squids
+- Added a small chance for giant Squids to spawn in Deep Cold Oceans and Deep Frozen Oceans
+
+### UI
+- Added new experimental Multiplayer UI
 
 ## Changes
 ### Combat

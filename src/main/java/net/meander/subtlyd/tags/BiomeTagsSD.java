@@ -16,6 +16,7 @@ public class BiomeTagsSD {
     public static final TagKey<Biome> HAS_CESPITOSE = create("has_cespitose");
     public static final TagKey<Biome> SPAWNS_COLD_VARIANT_MONSTERS = create("spawns_cold_variant_monsters");
     public static final TagKey<Biome> SPAWNS_WARM_VARIANT_MONSTERS = create("spawns_warm_variant_monsters");
+    public static final TagKey<Biome> SPAWNS_COLOSSAL_SQUIDS = create("spawns_colossal_squids");
 
     private static TagKey<Biome> create(String string) {
         return TagKey.create(Registries.BIOME, UtilSD.identifier(string));
