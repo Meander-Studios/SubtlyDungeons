@@ -59,8 +59,16 @@
           {
             "title": "Artists",
             "names": [
+              "James Robinett",
+              "Kyrin Betts",
+              "Rale"
+            ]
+          },
+          {
+            "title": "Concept Artists",
+            "names": [
               "Cameron Fisher",
-              "Kyrin Betts"
+              "Mushinx"
             ]
           },
           {
@@ -89,6 +97,18 @@
               "Grant Kirkhope",
               "Rostislav Trifonov",
               "Eugene Nesci"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Localization",
+        "titles": [
+          {
+            "title": "Localizations by",
+            "names": [
+              "Artemis Ribeiro",
+              "SK4RDY"
             ]
           }
         ]

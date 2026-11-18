@@ -28,6 +28,10 @@
 - Added "Save the world — go outside!"
 - Added "Also try Minecraft Dungeons 2!"
 
+### Credits
+- Added Mushinx, Rale, SK4RDY, James Robinett, Artemis Ribeiro, and Cameron Fisher!
+  - Big thanks to those who were able to volunteer and/or join the Subtly Dungeons team!
+
 ## Technical Changes
 ### Data Tags
 - Created `dyed_terracotta_stairs` block item tag
