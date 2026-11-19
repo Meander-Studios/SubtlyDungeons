@@ -49,15 +49,15 @@ public class BiomeTagsProviderSD extends FabricTagsProvider<Biome> {
                 .add(Biomes.SNOWY_BEACH)
                 .add(Biomes.SNOWY_TAIGA)
                 .add(Biomes.ICE_SPIKES)
-                .add(Biomes.ICE_CAVES)
                 .add(Biomes.SNOWY_SLOPES)
                 .add(Biomes.GROVE)
                 .add(Biomes.JAGGED_PEAKS)
                 .add(Biomes.FROZEN_RIVER)
                 .add(Biomes.DEEP_FROZEN_OCEAN)
                 .add(Biomes.FROZEN_OCEAN)
-                .add(Biomes.FROZEN_PEAKS);
-        tag(BiomeTagsSD.SPAWNS_WARM_VARIANT_MONSTERS)
+                .add(Biomes.FROZEN_PEAKS)
+                .forceAddTag(BiomeTags.SPAWNS_COLD_VARIANTS_UNDERGROUND);
+        tag(BiomeTagsSD.SPAWNS_DRY_VARIANT_MONSTERS)
                 .add(Biomes.DESERT)
                 .add(Biomes.BADLANDS)
                 .add(Biomes.ERODED_BADLANDS);

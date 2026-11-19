@@ -73,7 +73,7 @@
 - Created `dyed_terracotta_slabs` block item tag
 - Created `chills_snow_golem` block tag
 - Created `spawns_cold_variant_monsters` biome tag
-- Created `spawns_warm_variant_monsters` biome tag
+- Created `spawns_dry_variant_monsters` biome tag
 
 ### Bug Fixes
 - Fixed bug causing all skins to appear slim on the Title Screen
